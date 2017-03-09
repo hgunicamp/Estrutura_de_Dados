@@ -1,3 +1,4 @@
+package data.structure.list.test;
 
 public class Aluno {
     protected String nome;

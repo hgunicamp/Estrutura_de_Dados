@@ -1,3 +1,5 @@
+package data.structure.list;
+
 public class LinkedList<E> {
     protected NodeList<E> first;
     protected int size;

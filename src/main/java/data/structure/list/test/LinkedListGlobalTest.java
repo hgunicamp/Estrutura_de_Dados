@@ -1,5 +1,8 @@
+package data.structure.list.test;
 
-public class TesteLinkedList {
+import data.structure.list.LinkedList;
+
+public class LinkedListGlobalTest {
     public static void main(String[] args) {
         LinkedList<Aluno> list = new LinkedList<Aluno>();
 

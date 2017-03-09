@@ -1,3 +1,5 @@
+package data.structure.list;
+
 public class NodeList<E> {
     private E element;
     private NodeList<E> next;
