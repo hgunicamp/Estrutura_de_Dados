@@ -1,6 +1,6 @@
 public class LinkedList<E> {
-    private Node<E> first;
-    private int size;
+    protected NodeList<E> first;
+    protected int size;
 
     /**
      * Retorna o penúltimo nó dentro da lista.
@@ -8,10 +8,10 @@ public class LinkedList<E> {
      *
      * @return node
      */
-    private Node<E> getPreviousNode(int position) throws IndexOutOfBoundsException {
+    protected NodeList<E> getPreviousNode(int position) throws IndexOutOfBoundsException {
         if (position >= size) throw new IndexOutOfBoundsException();
 
-        Node<E> node = this.first;
+        NodeList<E> node = this.first;
         int stopPos = position - 1;
 
         for (int i = 0; i < stopPos; i++) {
@@ -29,8 +29,8 @@ public class LinkedList<E> {
      *
      * @return node
      */
-    private Node<E> getLastNode() {
-        Node<E> node = this.first;
+    protected NodeList<E> getLastNode() {
+        NodeList<E> node = this.first;
         if (null == node) return null;
         while (null != node.getNext()) node = node.getNext();
         return node;
@@ -42,7 +42,7 @@ public class LinkedList<E> {
      *
      * @return node
      */
-    private Node<E> getFirstNode() {
+    protected NodeList<E> getFirstNode() {
         return this.first;
     }
 
@@ -64,7 +64,7 @@ public class LinkedList<E> {
      *
      * @return LinkedList
      */
-    private LinkedList(Node<E> node, int size) {
+    protected LinkedList(NodeList<E> node, int size) {
         this.first = node;
         this.size = size;
     }
@@ -94,7 +94,7 @@ public class LinkedList<E> {
      * @return E
      */
     public E get(int position) throws IndexOutOfBoundsException {
-        Node<E> node = this.getPreviousNode(position);
+        NodeList<E> node = this.getPreviousNode(position);
         return (null != node) ? node.getNext().getElement() : this.first.getElement();
     }
     
@@ -104,19 +104,19 @@ public class LinkedList<E> {
      * @return void
      */
     public void set(int position, E element) throws IndexOutOfBoundsException {
-        Node<E> node = this.getPreviousNode(position);
+        NodeList<E> node = this.getPreviousNode(position);
         node = (null != node) ? node.getNext() : this.first;
         node.setElement(element);
     }
     
     /**
-     * Removo o nó de uma posição específica, retornando o seu elemento.
+     * Remove o nó de uma posição específica, retornando o seu elemento.
      *
      * @return E
      */
     public E remove(int position) throws IndexOutOfBoundsException {
-        Node<E> node = this.getPreviousNode(position);
-        Node<E> temp;
+        NodeList<E> node = this.getPreviousNode(position);
+        NodeList<E> temp;
 
         if (null != node) {
             temp = node.removeNextNode();
@@ -144,11 +144,11 @@ public class LinkedList<E> {
      * @return void
      */
     public void add(E element) {
-        Node<E> node = this.getLastNode();
+        NodeList<E> node = this.getLastNode();
         if (null != node) {
-            node.setNext(new Node<E>(element));
+            node.setNext(new NodeList<E>(element));
         } else {
-            this.first = new Node<E>(element);
+            this.first = new NodeList<E>(element);
         }
         size++;
     }
@@ -159,11 +159,11 @@ public class LinkedList<E> {
      * @return void
      */
     public void add(int position, E element) throws IndexOutOfBoundsException {
-        Node<E> node = this.getPreviousNode(position);
+        NodeList<E> node = this.getPreviousNode(position);
         if (null != node) {
-            node.insertAfterNode(new Node<E>(element));
+            node.insertAfterNode(new NodeList<E>(element));
         } else {
-            node = new Node<E>(element);
+            node = new NodeList<E>(element);
             node.setNext(this.first);
             this.first = node;
         }
@@ -176,7 +176,7 @@ public class LinkedList<E> {
      * @return void
      */
     public void add(int position, LinkedList<E> list) throws IndexOutOfBoundsException {
-        Node<E> node = this.getPreviousNode(position);
+        NodeList<E> node = this.getPreviousNode(position);
         LinkedList<E> tempList = list.clone();
         if (null != node) {
             node.insertAfterNode(tempList.getFirstNode());
@@ -194,9 +194,9 @@ public class LinkedList<E> {
      */
     @Override
     public LinkedList<E> clone() {
-        Node<E> node = this.first;
-        Node<E> temp1 = node.clone();
-        Node<E> temp2 = temp1;
+        NodeList<E> node = this.first;
+        NodeList<E> temp1 = node.clone();
+        NodeList<E> temp2 = temp1;
 
         for (int i = 1; i < size; i++) {
             node = node.getNext();
