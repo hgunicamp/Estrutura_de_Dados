@@ -8,9 +8,9 @@ public class LinkedList<E> {
      * Retorna o penúltimo nó dentro da lista.
      * Apenas para uso interno.
      *
-     * @return node
+     * @return NodeList<E>
      */
-    protected NodeList<E> getPreviousNode(int position) throws IndexOutOfBoundsException {
+    private NodeList<E> getPreviousNode(int position) throws IndexOutOfBoundsException {
         if (position >= size) throw new IndexOutOfBoundsException();
 
         NodeList<E> node = this.first;
@@ -29,9 +29,9 @@ public class LinkedList<E> {
      * Retorna o último nó dentro da lista.
      * Apenas para uso interno.
      *
-     * @return node
+     * @return NodeList<E>
      */
-    protected NodeList<E> getLastNode() {
+    private NodeList<E> getLastNode() {
         NodeList<E> node = this.first;
         if (null == node) return null;
         while (null != node.getNext()) node = node.getNext();
@@ -42,9 +42,9 @@ public class LinkedList<E> {
      * Retorna o primeiro nó dentro da lista.
      * Apenas para uso interno.
      *
-     * @return node
+     * @return NodeList<E>
      */
-    protected NodeList<E> getFirstNode() {
+    private NodeList<E> getFirstNode() {
         return this.first;
     }
 
@@ -52,7 +52,7 @@ public class LinkedList<E> {
      * Construtor público.
      * Usado para criar uma nova lista vazia.
      *
-     * @return LinkedList
+     * @return LinkedList<E>
      */
     public LinkedList() {
         this.first = null;
@@ -64,9 +64,9 @@ public class LinkedList<E> {
      * Usado para criar uma nova lista com os dados já definidos.
      * Aenas para uso interno
      *
-     * @return LinkedList
+     * @return LinkedList<E>
      */
-    protected LinkedList(NodeList<E> node, int size) {
+    private LinkedList(NodeList<E> node, int size) {
         this.first = node;
         this.size = size;
     }
@@ -141,7 +141,8 @@ public class LinkedList<E> {
     }
 
     /**
-     * Adiciona um elemento no fim da lista.
+     * Adiciona um elemento no fim da lista e retorna
+     * o penúltimo elemento.
      *
      * @return void
      */
@@ -217,6 +218,5 @@ public class LinkedList<E> {
             System.out.println(this.get(i));
         }
     }
-
 
 }
