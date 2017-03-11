@@ -1,6 +1,7 @@
 package data.structure.list;
 
 public class LinkedList<E> {
+    public static final int NOT_FOUND = -1;
     protected NodeList<E> first;
     protected int size;
 
@@ -284,10 +285,34 @@ public class LinkedList<E> {
     }
 
     /**
+     * Busca a primeira ocorrência do elemento buscado a partir da posição especificada
+     * 
+     * @return int
+     */
+    public int find(int initPos, E element) throws IndexOutOfBoundsException {
+        int position = NOT_FOUND;
+        NodeList<E> node = this.getPreviousNode(initPos);
+        if (null != node) {
+            node = node.getNext();
+        } else {
+            node = this.first;
+        }
+        for (int i = initPos; i < size; i++) {
+            if (node.getElement().equals(element)) {
+                position = i;
+                break;
+            }
+            node = node.getNext();
+        }
+        return position;
+    }
+
+
+    /**
      * Imprime no terminal todos os elementos da lista.
      */
     public void print() {
-        System.out.println("size = " + size); // DEBUG
+        System.out.println("size = " + size);
         for (int i = 0; i < size; i++) {
             System.out.println(this.get(i));
         }

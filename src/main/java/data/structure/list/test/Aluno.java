@@ -39,4 +39,11 @@ public class Aluno {
     public String toString() {
         return "Aluno - [nome: " + nome + ", nota: " + nota + "]"; 
     }
+
+    @Override
+    public boolean equals(Object other) {
+        Aluno otherCast = (Aluno) other;
+        return this.nome.equals(otherCast.getNome());
+    }
+
 }

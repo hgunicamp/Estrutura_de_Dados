@@ -79,5 +79,12 @@ public class DoublyLinkedListGlobalTest {
         list.print();
         System.out.println();
 
+        /* Teste find */
+        System.out.println("Teste find.");
+        System.out.println("find(0,\"Mario\"): " + list.find(0, new Aluno("Mario")));
+        System.out.println("find(8,\"Fabio\"): " + list.find(8, new Aluno("Fabio")));
+        System.out.println("find(8,\"Mario\"): " + list.find(8, new Aluno("Mario")));
+        System.out.println();
+
     }
 }
