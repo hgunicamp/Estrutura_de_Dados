@@ -1,10 +1,10 @@
 package data.structure.list.test;
 
-import data.structure.list.LinkedList;
+import data.structure.list.DoublyLinkedList;
 
-public class LinkedListGlobalTest {
+public class DoublyLinkedListGlobalTest {
     public static void main(String[] args) {
-        LinkedList<Aluno> list = new LinkedList<Aluno>();
+        DoublyLinkedList<Aluno> list = new DoublyLinkedList<Aluno>();
 
         /* Testando inserção serial. */
         System.out.println("Testando inserção serial.");
@@ -24,7 +24,8 @@ public class LinkedListGlobalTest {
 
         /* Testando  remoção */
         System.out.println("Testando  remoção.");
-        System.out.println(list.removeFirst());
+        //System.out.println(list.removeFirst());
+        System.out.println(list.remove(0));
         System.out.println(list.remove(8));
         System.out.println();
 
@@ -41,7 +42,7 @@ public class LinkedListGlobalTest {
 
         /* Testando clone */
         System.out.println("Testando clone.");
-        LinkedList<Aluno> list2 = list.clone();
+        DoublyLinkedList<Aluno> list2 = list.clone();
 
         list2.print();
         System.out.println();
@@ -52,7 +53,7 @@ public class LinkedListGlobalTest {
 
         /* Testando inserção de lista */
         System.out.println("Testando inserção de lista.");
-        list2 = new LinkedList<Aluno>();
+        list2 = new DoublyLinkedList<Aluno>();
         list2.add(new Aluno("Tiago", 7.5));
         list2.add(new Aluno("Silvia", 8.5));
 
@@ -61,7 +62,7 @@ public class LinkedListGlobalTest {
         list.print();
         System.out.println();
 
-        list2 = new LinkedList<Aluno>();
+        list2 = new DoublyLinkedList<Aluno>();
         list2.add(new Aluno("Lucas",  9.5));
         list2.add(new Aluno("Lilian", 6.5));
 

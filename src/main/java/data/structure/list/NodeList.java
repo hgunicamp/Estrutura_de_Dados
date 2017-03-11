@@ -68,40 +68,17 @@ public class NodeList<E> {
     }
 
     public void insertAfterNode(NodeList<E> node) {
-        if (this.isLast()) {
-            this.next = node;
-            if (null != this.previous) { node.setPrevious(this); }
-            return;
+        if (!this.isLast()) {
+            node.setNext(this.next);
         }
-
-        NodeList<E> theirLast = node;
-
-        while (!theirLast.isLast()) {
-            theirLast = theirLast.getNext();
-        }
-
-        theirLast.setNext(this.next);
         this.next = node;
-
-        if (null != theirLast.getPrevious()) {
-            theirLast.getNext().setPrevious(theirLast);
-        }
-
     }
 
     public void insertBeforeNode(NodeList<E> node) {
-        NodeList<E> theirLast = node;
-
-        while (!theirLast.isLast()) {
-            theirLast = theirLast.getNext();
+        if (!this.isFirst()) {
+            node.setPrevious(this.previous);
         }
-
-        theirLast.setNext(this);
-        if (null != this.previous) {
-            node.setPrevious(previous);
-            this.setPrevious(theirLast);
-        }
-
+        this.previous = node;
     }
 
     @Override

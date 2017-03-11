@@ -1,13 +1,12 @@
 package data.structure.list;
 
-public class LinkedList<E> {
-    protected NodeList<E> first;
-    protected int size;
+public class DoublyLinkedList<E> extends LinkedList<E> {
+    protected NodeList<E> last;
 
-    protected NodeList<E> goToFrontUntil(int position) {
-        NodeList<E> node = this.first;
-        for (int i = 1; i <= position; i++) {
-            node = node.getNext();
+    protected NodeList<E> goToBackUntil(int position) {
+        NodeList<E> node = this.last;
+        for (int i = size - 2; i >= position; i--) {
+            node = node.getPrevious();
         }
         return node;
     }
@@ -22,7 +21,9 @@ public class LinkedList<E> {
         if (position >= size) throw new IndexOutOfBoundsException();
 
         int stopPos = position - 1;
-        NodeList<E> node = goToFrontUntil(stopPos);
+        boolean forwardDir = stopPos < ((this.size / 2) - 1);
+
+        NodeList<E> node = (forwardDir) ? this.goToFrontUntil(stopPos) : this.goToBackUntil(stopPos);
 
         if (stopPos < 0) node = null;
 
@@ -36,45 +37,18 @@ public class LinkedList<E> {
      * @return NodeList<E>
      */
     private NodeList<E> getLastNode() {
-        NodeList<E> node = this.first;
-        if (null == node) return null;
-        while (null != node.getNext()) node = node.getNext();
-        return node;
-    }
-
-    /**
-     * Retorna o primeiro nó dentro da lista.
-     * Apenas para uso interno.
-     *
-     * @return NodeList<E>
-     */
-    protected NodeList<E> getFirstNode() {
-        return this.first;
-    }
-
-    /**
-     * Retorna o último nó dentro da lista.
-     * Apenas para uso interno.
-     *
-     * @return NodeList<E>
-     */
-    protected NodeList<E> getLasttNode() {
-        NodeList<E> node = this.first;
-        for (int i = 1; i < size; i++) {
-            node = node.getNext();
-        }
-        return node;
+        return this.last;
     }
 
     /**
      * Construtor público.
      * Usado para criar uma nova lista vazia.
      *
-     * @return LinkedList<E>
+     * @return DoublyLinkedList
      */
-    public LinkedList() {
-        this.first = null;
-        this.size = 0;
+    public DoublyLinkedList() {
+        super();
+        this.last = null;
     }
 
     /**
@@ -82,30 +56,12 @@ public class LinkedList<E> {
      * Usado para criar uma nova lista com os dados já definidos.
      * Aenas para uso interno
      *
-     * @return LinkedList<E>
+     * @return DoublyLinkedList<E>
      */
-    private LinkedList(NodeList<E> node, int size) {
-        this.first = node;
+    private DoublyLinkedList(NodeList<E> first, NodeList<E> last, int size) {
+        this.first = first;
+        this.last = last;
         this.size = size;
-    }
-
-
-    /**
-     * Retorna o tamanho da lista
-     *
-     * @return int
-     */
-    public int size() {
-        return this.size;
-    }
-
-    /**
-     * Retorna se a lista está vazia.
-     *
-     * @return boolean
-     */
-    public boolean isEmpty() {
-        return this.size == 0;
     }
 
     /**
@@ -113,6 +69,7 @@ public class LinkedList<E> {
      *
      * @return E
      */
+    @Override
     public E get(int position) throws IndexOutOfBoundsException {
         NodeList<E> node = this.getPreviousNode(position);
         return (null != node) ? node.getNext().getElement() : this.first.getElement();
@@ -135,7 +92,7 @@ public class LinkedList<E> {
      */
     public E getLast() {
         if (size == 0) { return null; }
-        return this.get(size-1);
+        return this.last.getElement();
     }
     
     /**
@@ -143,18 +100,22 @@ public class LinkedList<E> {
      *
      * @return void
      */
+    @Override
     public void set(int position, E element) throws IndexOutOfBoundsException {
         NodeList<E> node = this.getPreviousNode(position);
         node = (null != node) ? node.getNext() : this.first;
         node.setElement(element);
     }
-    
+
     /**
      * Remove o nó de uma posição específica, retornando o seu elemento.
      *
      * @return E
      */
+    @Override
     public E remove(int position) throws IndexOutOfBoundsException {
+        if (position == size-1) return this.removeLast();
+
         NodeList<E> node = this.getPreviousNode(position);
         NodeList<E> temp;
 
@@ -163,6 +124,7 @@ public class LinkedList<E> {
         } else {
             temp = this.first;
             this.first = temp.getNext();
+            this.first.setPrevious(null);
         }
 
         size--;
@@ -174,8 +136,13 @@ public class LinkedList<E> {
      *
      * @return E
      */
+    @Override
     public E removeFirst() throws IndexOutOfBoundsException {
-        return this.remove(0);
+        NodeList<E> node = this.first;
+        this.first = node.getNext();
+        this.first.setPrevious(null);
+        size--;
+        return node.getElement();
     }
 
     /**
@@ -183,23 +150,26 @@ public class LinkedList<E> {
      * 
      * @return E
      */
+    @Override
     public E removeLast() {
-        return this.remove(size-1);
+        NodeList<E> node = this.last;
+        this.last = node.getPrevious();
+        this.last.setNext(null);
+        size--;
+        return node.getElement();
     }
 
-    /**
-     * Adiciona um elemento no fim da lista e retorna
-     * o penúltimo elemento.
-     *
-     * @return void
-     */
+
+    @Override
     public void add(E element) {
-        NodeList<E>    node = this.getLastNode();
         NodeList<E> newNode = new NodeList<E>(element);
-        if (null != node) {
-            node.setNext(newNode);
+        if (null != this.first) {
+            newNode.setPrevious(this.last);
+            this.last.setNext(newNode);
+            this.last = newNode;
         } else {
             this.first = newNode;
+            this.last  = newNode;
         }
         size++;
     }
@@ -209,16 +179,17 @@ public class LinkedList<E> {
      * 
      * @return void
      */
-    public void add(LinkedList<E> list) {
+    public void add(DoublyLinkedList<E> list) {
         if (list.size() == 0) return;
 
-        NodeList<E>       node = this.getLastNode();
-        LinkedList<E> tempList = list.clone();
-        if (null != node) {
-            node.setNext(tempList.getFirstNode());
+        DoublyLinkedList<E> tempList = list.clone();
+        if (size != 0) {
+            this.last.setNext(tempList.getFirstNode());
+            tempList.getFirstNode().setPrevious(this.last);
         } else {
             this.first = tempList.getFirstNode();
         }
+        this.last = tempList.getLastNode();
         size += tempList.size;
     }
 
@@ -227,12 +198,21 @@ public class LinkedList<E> {
      *
      * @return void
      */
+    @Override
     public void add(int position, E element) throws IndexOutOfBoundsException {
+        if (position == size-1) {
+            this.add(element);
+            return;
+        }
+
         NodeList<E>    node = this.getPreviousNode(position);
         NodeList<E> newNode = new NodeList<E>(element);
         if (null != node) {
+            newNode.setPrevious(node);
+            node.getNext().setPrevious(newNode);
             node.insertAfterNode(newNode);
         } else {
+            this.first.setPrevious(newNode);
             newNode.setNext(this.first);
             this.first = newNode;
         }
@@ -244,7 +224,7 @@ public class LinkedList<E> {
      *
      * @return void
      */
-    public void add(int position, LinkedList<E> list) throws IndexOutOfBoundsException {
+    public void add(int position, DoublyLinkedList<E> list) throws IndexOutOfBoundsException {
         if (list.size() == 0) return;
 
         if (position == size-1) {
@@ -252,24 +232,27 @@ public class LinkedList<E> {
             return;
         }
         NodeList<E> node = this.getPreviousNode(position);
-        LinkedList<E> tempList = list.clone();
+        DoublyLinkedList<E> tempList = list.clone();
         if (null != node) {
             tempList.getLastNode().setNext(node.getNext());
+            node.getNext().setPrevious(tempList.getLasttNode());
+            tempList.getFirstNode().setPrevious(node);
             node.setNext(tempList.getFirstNode());
         } else {
             tempList.getLastNode().setNext(this.first);
+            this.first.setPrevious(tempList.getLastNode());
             this.first = tempList.getFirstNode();
         }
-        size += list.size();
+        size += tempList.size();
     }
 
     /**
      * Cria uma segunda lista com elemenatos de mesmo valor.
      *
-     * @return LinkedList<E>
+     * @return DoublyLinkedList<E>
      */
     @Override
-    public LinkedList<E> clone() {
+    public DoublyLinkedList<E> clone() {
         NodeList<E> node = this.first;
         NodeList<E> temp1 = node.clone();
         NodeList<E> temp2 = temp1;
@@ -277,20 +260,12 @@ public class LinkedList<E> {
         for (int i = 1; i < size; i++) {
             node = node.getNext();
             temp2.setNext(node.clone());
+            temp2.getNext().setPrevious(temp2);;
             temp2 = temp2.getNext();
         }
 
-        return new LinkedList<E>(temp1, size);
+        return new DoublyLinkedList<E>(temp1, temp2, size);
     }
 
-    /**
-     * Imprime no terminal todos os elementos da lista.
-     */
-    public void print() {
-        System.out.println("size = " + size); // DEBUG
-        for (int i = 0; i < size; i++) {
-            System.out.println(this.get(i));
-        }
-    }
 
 }
