@@ -15,6 +15,7 @@ public class DoublyLinkedList<E> extends LinkedList<E> {
      * Retorna o nó anterior à 'position' dentro da lista.
      * Apenas para uso interno.
      *
+     * @throws IndexOutOfBoundsException
      * @return NodeList<E>
      */
     private NodeList<E> getPreviousNode(int position) throws IndexOutOfBoundsException {
@@ -67,6 +68,7 @@ public class DoublyLinkedList<E> extends LinkedList<E> {
     /**
      * Retorna o elemento de uma posição específica.
      *
+     * @throws IndexOutOfBoundsException
      * @return E
      */
     @Override
@@ -98,6 +100,7 @@ public class DoublyLinkedList<E> extends LinkedList<E> {
     /**
      * Substitui o elemento de uma posição específica.
      *
+     * @throws IndexOutOfBoundsException
      * @return void
      */
     @Override
@@ -110,6 +113,7 @@ public class DoublyLinkedList<E> extends LinkedList<E> {
     /**
      * Remove o nó de uma posição específica, retornando o seu elemento.
      *
+     * @throws IndexOutOfBoundsException
      * @return E
      */
     @Override
@@ -134,6 +138,7 @@ public class DoublyLinkedList<E> extends LinkedList<E> {
     /**
      * Remove o primeiro nó.
      *
+     * @throws IndexOutOfBoundsException
      * @return E
      */
     @Override
@@ -196,6 +201,7 @@ public class DoublyLinkedList<E> extends LinkedList<E> {
     /**
      * Adiciona um elemento a uma posição específica na lista.
      *
+     * @throws IndexOutOfBoundsException
      * @return void
      */
     @Override
@@ -222,6 +228,7 @@ public class DoublyLinkedList<E> extends LinkedList<E> {
     /**
      * Adiciona todos os elementos de outra lista em uma posição específica na lista.
      *
+     * @throws IndexOutOfBoundsException
      * @return void
      */
     public void add(int position, DoublyLinkedList<E> list) throws IndexOutOfBoundsException {

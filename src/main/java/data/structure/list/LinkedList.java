@@ -63,6 +63,7 @@ public class LinkedList<E> implements Iterable<E> {
      * Retorna o nó anterior à 'position' dentro da lista.
      * Apenas para uso interno.
      *
+     * @throws IndexOutOfBoundsException
      * @return NodeList<E>
      */
     private NodeList<E> getPreviousNode(int position) throws IndexOutOfBoundsException {
@@ -158,6 +159,7 @@ public class LinkedList<E> implements Iterable<E> {
     /**
      * Retorna o elemento de uma posição específica.
      *
+     * @throws IndexOutOfBoundsException
      * @return E
      */
     public E get(int position) throws IndexOutOfBoundsException {
@@ -188,6 +190,7 @@ public class LinkedList<E> implements Iterable<E> {
     /**
      * Substitui o elemento de uma posição específica.
      *
+     * @throws IndexOutOfBoundsException
      * @return void
      */
     public void set(int position, E element) throws IndexOutOfBoundsException {
@@ -199,6 +202,7 @@ public class LinkedList<E> implements Iterable<E> {
     /**
      * Remove o nó de uma posição específica, retornando o seu elemento.
      *
+     * @throws IndexOutOfBoundsException
      * @return E
      */
     public E remove(int position) throws IndexOutOfBoundsException {
@@ -219,6 +223,7 @@ public class LinkedList<E> implements Iterable<E> {
     /**
      * Remove o primeiro nó.
      *
+     * @throws IndexOutOfBoundsException
      * @return E
      */
     public E removeFirst() throws IndexOutOfBoundsException {
@@ -272,6 +277,7 @@ public class LinkedList<E> implements Iterable<E> {
     /**
      * Adiciona um elemento a uma posição específica na lista.
      *
+     * @throws IndexOutOfBoundsException
      * @return void
      */
     public void add(int position, E element) throws IndexOutOfBoundsException {
@@ -289,6 +295,7 @@ public class LinkedList<E> implements Iterable<E> {
     /**
      * Adiciona todos os elementos de outra lista em uma posição específica na lista.
      *
+     * @throws IndexOutOfBoundsException
      * @return void
      */
     public void add(int position, LinkedList<E> list) throws IndexOutOfBoundsException {
@@ -333,6 +340,7 @@ public class LinkedList<E> implements Iterable<E> {
     /**
      * Busca a primeira ocorrência do elemento buscado a partir da posição especificada
      * 
+     * @throws IndexOutOfBoundsException
      * @return int
      */
     public int find(int initPos, E element) throws IndexOutOfBoundsException {
