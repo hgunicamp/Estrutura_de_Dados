@@ -1,9 +1,55 @@
 package data.structure.list;
 
-public class LinkedList<E> {
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+
+public class LinkedList<E> implements Iterable<E> {
     public static final int NOT_FOUND = -1;
     protected NodeList<E> first;
     protected int size;
+
+    public class LinkedListIterator implements Iterator<E> {
+        private NodeList<E> previous;
+        private NodeList<E> next;
+
+        public LinkedListIterator() {
+            this.previous = null;
+            this.next = first;
+        }
+        
+        public boolean hasNext() {
+            return null != this.next;
+        }
+
+        public E next() throws NoSuchElementException {
+            if (null == this.next) throw new NoSuchElementException();
+
+            E temp = this.next.getElement();
+            this.previous = this.next;
+            this.next = this.next.getNext();
+            return temp;
+        }
+
+        public void remove() throws NoSuchElementException {
+            if (null == this.next) throw new NoSuchElementException();
+
+            if (null != this.previous) {
+                this.previous.removeNextNode();
+                this.next = this.previous.getNext();
+            } else {
+                first = this.next.getNext();
+                if (null != first.getPrevious()) {
+                    first.setPrevious(null);
+                }
+                this.next = first;
+            }
+            size--;
+        }
+    }
+
+    public Iterator<E> iterator() {
+        return new LinkedListIterator();
+    }
 
     protected NodeList<E> goToFrontUntil(int position) {
         NodeList<E> node = this.first;
@@ -313,8 +359,8 @@ public class LinkedList<E> {
      */
     public void print() {
         System.out.println("size = " + size);
-        for (int i = 0; i < size; i++) {
-            System.out.println(this.get(i));
+        for (E element: this) {
+            System.out.println(element);
         }
     }
 
