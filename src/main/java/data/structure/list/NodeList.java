@@ -75,8 +75,7 @@ public class NodeList<E> {
     }
 
     public void insertBeforeNode(NodeList<E> node) {
-        if (this.isFirst()) return;
-
+        node.setNext(this);
         node.setPrevious(this.previous);
         this.previous = node;
     }
