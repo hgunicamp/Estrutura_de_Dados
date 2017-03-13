@@ -48,6 +48,22 @@ public class LinkedList<E> implements Iterable<E> {
         return new LinkedListIterator();
     }
 
+    /** 
+     * Returns a array with all LinkedList's elements
+     * 
+     * @return Object[]
+     */
+    public Object[] toArray() throws NoSuchElementException {
+        if (size == 0) throw new NoSuchElementException();
+
+        Object[] elements = new Object[size];
+        int i = 0;
+        for (Object element: this) {
+            elements[i++] = element;
+        }
+        return elements;
+    }
+
     protected NodeList<E> goToFrontUntil(int position) {
         NodeList<E> node = this.first;
         for (int i = 1; i <= position; i++) {
@@ -120,6 +136,21 @@ public class LinkedList<E> implements Iterable<E> {
     public LinkedList() {
         this.first = null;
         this.size = 0;
+    }
+
+    /**
+     * Construtor público.
+     * Usado para criar uma nova lista através de um array.
+     *
+     * @return LinkedList<E>
+     */
+    public LinkedList(Object[] elements) {
+        this.first = null;
+        this.size = 0;
+
+        for (Object element: elements) {
+            this.add((E) element);
+        }
     }
 
     /**

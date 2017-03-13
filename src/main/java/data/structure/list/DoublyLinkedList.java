@@ -97,6 +97,22 @@ public class DoublyLinkedList<E> extends LinkedList<E> {
     }
 
     /**
+     * Construtor público.
+     * Usado para criar uma nova lista através de um array.
+     *
+     * @return LinkedList<E>
+     */
+    public DoublyLinkedList(Object[] elements) {
+        this.first = null;
+        this.last = null;
+        this.size = 0;
+
+        for (Object element: elements) {
+            this.add((E) element);
+        }
+    }
+
+    /**
      * Construtor privado.
      * Usado para criar uma nova lista com os dados já definidos.
      * Aenas para uso interno
