@@ -45,6 +45,12 @@ public class NodeList<E> {
         return null == this.previous;
     }
 
+    /**
+     * Removes the next NodeList into the chain. Updates the value pointed
+     * by next. Returns the node which was removed from the chain.
+     * 
+     * @return NodeList<E>
+     */
     public NodeList<E> removeNextNode() {
         if (this.isLast()) return null;
 
@@ -56,6 +62,12 @@ public class NodeList<E> {
         return temp; 
     }
 
+    /**
+     * Removes the previous NodeList into the chain. Updates the value pointed
+     * by previous. Returns the node which was removed from the chain.
+     * 
+     * @return NodeList<E>
+     */
     public NodeList<E> removePreviousNode() {
         if (this.isFirst()) return null;
 
@@ -67,6 +79,11 @@ public class NodeList<E> {
         return temp;
     }
 
+    /**
+     * Inserts a new NodeList into the chain after this node.
+     * 
+     * @return void
+     */
     public void insertAfterNode(NodeList<E> node) {
         if (!this.isLast()) {
             node.setNext(this.next);
@@ -74,6 +91,11 @@ public class NodeList<E> {
         this.next = node;
     }
 
+    /**
+     * Inserts a new NodeList into the chain before this node.
+     * 
+     * @return void
+     */
     public void insertBeforeNode(NodeList<E> node) {
         node.setNext(this);
         node.setPrevious(this.previous);
