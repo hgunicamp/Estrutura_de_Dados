@@ -61,7 +61,7 @@ public class NodeList<E> {
 
         NodeList<E> temp = this.previous;
         this.previous = temp.getPrevious();
-        if (null != temp.getNext() && null != this.previous) {
+        if (null != this.previous) {
             this.previous.setNext(this);
         }
         return temp;

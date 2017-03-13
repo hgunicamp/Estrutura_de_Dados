@@ -1,7 +1,51 @@
 package data.structure.list;
 
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+
 public class DoublyLinkedList<E> extends LinkedList<E> {
     protected NodeList<E> last;
+
+    public class DoublyLinkedListBackwardIterator implements Iterator<E> {
+        private NodeList<E> previous;
+        private NodeList<E> next;
+
+        public DoublyLinkedListBackwardIterator() {
+            this.next = null;
+            this.previous = last;
+        }
+
+        public boolean hasNext() {
+            return null != previous;
+        }
+
+        public E next() throws NoSuchElementException {
+            if (null == this.previous) throw new NoSuchElementException();
+
+            NodeList<E> temp = this.previous;
+            this.next = this.previous;
+            this.previous = temp.getPrevious();
+            return temp.getElement();
+        }
+
+        public void remove() throws NoSuchElementException {
+            if (null == this.previous) throw new NoSuchElementException();
+
+            if (null != this.next) {
+                this.next.removePreviousNode();
+                this.previous = this.next.getPrevious();
+            } else {
+                last = this.previous.getPrevious();
+                this.previous = last;
+            }
+            size--;
+        }
+
+    }
+
+    public Iterator<E> backIterator() {
+        return new DoublyLinkedListBackwardIterator();
+    }
 
     protected NodeList<E> goToBackUntil(int position) {
         NodeList<E> node = this.last;

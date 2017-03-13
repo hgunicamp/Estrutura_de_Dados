@@ -38,9 +38,6 @@ public class LinkedList<E> implements Iterable<E> {
                 this.next = this.previous.getNext();
             } else {
                 first = this.next.getNext();
-                if (null != first.getPrevious()) {
-                    first.setPrevious(null);
-                }
                 this.next = first;
             }
             size--;

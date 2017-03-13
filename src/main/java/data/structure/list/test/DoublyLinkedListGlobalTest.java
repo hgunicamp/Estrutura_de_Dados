@@ -1,6 +1,7 @@
 package data.structure.list.test;
 
 import data.structure.list.DoublyLinkedList;
+import java.util.Iterator;
 
 public class DoublyLinkedListGlobalTest {
     public static void main(String[] args) {
@@ -19,6 +20,10 @@ public class DoublyLinkedListGlobalTest {
         list.add(new Aluno("Fabio",   2.0));
         list.add(new Aluno("Joana",   1.0));
 
+        Iterator<Aluno> backIterator = list.backIterator();
+        while (backIterator.hasNext()) {
+            System.out.println(backIterator.next());
+        }
         list.print();
         System.out.println();
 
@@ -29,6 +34,10 @@ public class DoublyLinkedListGlobalTest {
         System.out.println(list.remove(8));
         System.out.println();
 
+        backIterator = list.backIterator();
+        while (backIterator.hasNext()) {
+            System.out.println(backIterator.next());
+        }
         list.print();
         System.out.println();
 
@@ -37,6 +46,10 @@ public class DoublyLinkedListGlobalTest {
         list.add(0, new Aluno("Joana", 1.0));
         list.add(5, new Aluno("João", 10.0));
 
+        backIterator = list.backIterator();
+        while (backIterator.hasNext()) {
+            System.out.println(backIterator.next());
+        }
         list.print();
         System.out.println();
 
@@ -44,6 +57,10 @@ public class DoublyLinkedListGlobalTest {
         System.out.println("Testando clone.");
         DoublyLinkedList<Aluno> list2 = list.clone();
 
+        backIterator = list2.backIterator();
+        while (backIterator.hasNext()) {
+            System.out.println(backIterator.next());
+        }
         list2.print();
         System.out.println();
 
@@ -59,6 +76,10 @@ public class DoublyLinkedListGlobalTest {
 
         list.add(8, list2);
 
+        backIterator = list.backIterator();
+        while (backIterator.hasNext()) {
+            System.out.println(backIterator.next());
+        }
         list.print();
         System.out.println();
 
@@ -68,6 +89,10 @@ public class DoublyLinkedListGlobalTest {
 
         list.add(0, list2);
 
+        backIterator = list.backIterator();
+        while (backIterator.hasNext()) {
+            System.out.println(backIterator.next());
+        }
         list.print();
         System.out.println();
 
@@ -76,6 +101,10 @@ public class DoublyLinkedListGlobalTest {
         list.set(0, new Aluno("Mario", 6.5));
         list.set(11, new Aluno("Roberta", 5.5));
 
+        backIterator = list.backIterator();
+        while (backIterator.hasNext()) {
+            System.out.println(backIterator.next());
+        }
         list.print();
         System.out.println();
 
