@@ -163,34 +163,32 @@ public class DoublyLinkedList<E> extends LinkedList<E> {
     @Override
     public E remove(int position) throws IndexOutOfBoundsException {
         if (position == size-1) return this.removeLast();
+        if (position == 0)      return this.removeFirst();
 
         NodeList<E> node = this.getPreviousNode(position);
-        NodeList<E> temp;
-
-        if (null != node) {
-            temp = node.removeNextNode();
-        } else {
-            temp = this.first;
-            this.first = temp.getNext();
-            this.first.setPrevious(null);
-        }
 
         size--;
-        return temp.getElement();
+        return node.removeNextNode().getElement();
     }
 
     /**
      * Remove o primeiro nó.
      *
-     * @throws IndexOutOfBoundsException
+     * @throws NoSuchElementException
      * @return E
      */
     @Override
-    public E removeFirst() throws IndexOutOfBoundsException {
+    public E removeFirst() throws NoSuchElementException {
+        if (size == 0) throw new NoSuchElementException();
+
+        size--;
         NodeList<E> node = this.first;
         this.first = node.getNext();
-        this.first.setPrevious(null);
-        size--;
+        if (size != 0) {
+            this.first.setPrevious(null);
+        } else {
+            this.last = null;
+        }
         return node.getElement();
     }
 
@@ -200,11 +198,17 @@ public class DoublyLinkedList<E> extends LinkedList<E> {
      * @return E
      */
     @Override
-    public E removeLast() {
+    public E removeLast() throws NoSuchElementException {
+        if (size == 0) throw new NoSuchElementException();
+
+        size--;
         NodeList<E> node = this.last;
         this.last = node.getPrevious();
-        this.last.setNext(null);
-        size--;
+        if (size != 0) {
+            this.last.setNext(null);
+        } else {
+            this.first = null;
+        }
         return node.getElement();
     }
 

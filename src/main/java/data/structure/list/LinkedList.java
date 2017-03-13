@@ -212,7 +212,6 @@ public class LinkedList<E> implements Iterable<E> {
             temp = this.first;
             this.first = temp.getNext();
         }
-
         size--;
         return temp.getElement();
     }
@@ -357,7 +356,6 @@ public class LinkedList<E> implements Iterable<E> {
         }
         return position;
     }
-
 
     /**
      * Imprime no terminal todos os elementos da lista.

@@ -75,19 +75,15 @@ public class NodeList<E> {
     }
 
     public void insertBeforeNode(NodeList<E> node) {
-        if (!this.isFirst()) {
-            node.setPrevious(this.previous);
-        }
+        if (this.isFirst()) return;
+
+        node.setPrevious(this.previous);
         this.previous = node;
     }
 
     @Override
     public NodeList<E> clone() {
         return new NodeList<E>(this.element);
-    }
-
-    public boolean equals(NodeList<E> other) {
-        return this.element.equals(other.getElement());
     }
 
 }
