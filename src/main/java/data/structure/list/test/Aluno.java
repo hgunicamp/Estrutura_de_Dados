@@ -1,8 +1,15 @@
 package data.structure.list.test;
 
-public class Aluno {
+public class Aluno implements Comparable<Aluno> {
     protected String nome;
     protected double nota;
+
+    public int compareTo(Aluno other) {
+        double otherNota = other.getNota();
+        if (this.nota < otherNota) return -1;
+        else if (this.nota > otherNota) return 1;
+        else return 0;
+    }
 
     public Aluno(String nome, double nota) {
         this.nome = nome;
