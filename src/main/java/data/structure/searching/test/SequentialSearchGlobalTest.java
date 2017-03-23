@@ -15,5 +15,11 @@ public class SequentialSearchGlobalTest {
 
         position = Search.sequential(new Integer(15), numbers);
         System.out.println("numbers[" + position + "] = " + numbers[position]);
+
+        position = Search.binary(new Integer(23), numbers);
+        System.out.println(position);
+
+        position = Search.binary(new Integer(-3), numbers);
+        System.out.println(position);
     }
 }
