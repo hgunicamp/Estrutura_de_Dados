@@ -19,14 +19,6 @@ public class BinTree<E extends Comparable<E>> {
         return this.root.getElement();
     }
 
-    public void setRoot(E element) {
-        if (null != this.root) {
-            this.root.setElement(element);
-        } else {
-            this.root = new NodeBinTree<E>(element);
-        }
-    }
-
     public BinTreeOrder getOrder() {
         return this.order;
     }
@@ -44,6 +36,29 @@ public class BinTree<E extends Comparable<E>> {
     public BinTree(E element) {
         this.root = new NodeBinTree<E>(element);
         this.order = BinTreeOrder.INFIX;
+    }
+
+    /**
+     * Informs if the tree is empty.
+     */
+    public boolean isEmpty() {
+        return null == this.root; 
+    }
+
+    /**
+     * Informs the number of nodes in the tree.
+     */
+    int size() {
+        if (null == this.root) return 0;
+        return root.familySize();
+    }
+
+    /**
+     * Informs the maximum depth of this tree.
+     */
+    int maxDepth() {
+        if (null == this.root) return 0;
+        return this.root.maxDepth();
     }
 
     private void add(E element, NodeBinTree<E> root) {

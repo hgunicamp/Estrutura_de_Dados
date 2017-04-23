@@ -137,4 +137,23 @@ public class NodeBinTree<E extends Comparable<E>> {
                null == this.rightChild;
     }
 
+    /**
+     * Informs the number of descendents
+     */
+    public int familySize() {
+        int temp = 1;
+        if (null != leftChild)  temp +=  leftChild.familySize();
+        if (null != rightChild) temp += rightChild.familySize();
+        return temp;
+    }
+
+    /**
+     * Informs the max depth.
+     */
+    int maxDepth() {
+        int  leftDepth = (null != leftChild)  ?  leftChild.maxDepth(): 0;
+        int rightDepth = (null != rightChild) ? rightChild.maxDepth(): 0;
+        return 1 + ((leftDepth > rightDepth) ? leftDepth : rightDepth);
+    }
+
 }
