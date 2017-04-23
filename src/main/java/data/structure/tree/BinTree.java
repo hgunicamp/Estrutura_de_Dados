@@ -48,7 +48,7 @@ public class BinTree<E extends Comparable<E>> {
     /**
      * Informs the number of nodes in the tree.
      */
-    int size() {
+    public int size() {
         if (null == this.root) return 0;
         return root.familySize();
     }
@@ -56,7 +56,7 @@ public class BinTree<E extends Comparable<E>> {
     /**
      * Informs the maximum depth of this tree.
      */
-    int maxDepth() {
+    public int maxDepth() {
         if (null == this.root) return 0;
         return this.root.maxDepth();
     }
