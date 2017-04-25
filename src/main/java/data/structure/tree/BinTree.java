@@ -97,4 +97,22 @@ public class BinTree<E extends Comparable<E>> {
         }
     }
 
+    /**
+     * Returns leftt sub-tree.
+     */
+    public BinTree<E> leftBinTree() {
+        BinTree<E> temp = new BinTree<E>();
+        temp.root = this.root.getLeftChild();
+        return temp;
+    }
+
+    /**
+     * Returns right sub-tree.
+     */
+    public BinTree<E> rightBinTree() {
+        BinTree<E> temp = new BinTree<E>();
+        temp.root = this.root.getRightChild();
+        return temp;
+    }
+
 }
