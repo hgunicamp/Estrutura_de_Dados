@@ -1,6 +1,7 @@
 package data.structure.tree.test;
 
 import data.structure.tree.BinTree;
+import data.structure.tree.BinTree.BinTreeOrder;
 
 public class BinTreeGlobalTest {
     public static void main(String[] args) {
@@ -21,6 +22,49 @@ public class BinTreeGlobalTest {
 
         System.out.println("btree2.size() = " + btree2.size());
         System.out.println("btree2.maxDepth() = " + btree2.maxDepth());
+        System.out.println();
+
+        System.out.println("Testando acesso.");
+        System.out.println("  " + btree1.getRoot());
+        System.out.print(btree1.leftBinTree().getRoot());
+        System.out.println("   " + btree1.rightBinTree().getRoot());
+        System.out.print("Infix btree1:");
+        for (Integer integer: btree1) {
+            System.out.print(" " + integer);
+        }
+        System.out.println();
+        btree1.setOrder(BinTreeOrder.PREFIX);
+        System.out.print("Prefix btree1:");
+        for (Integer integer: btree1) {
+            System.out.print(" " + integer);
+        }
+        System.out.println();
+        btree1.setOrder(BinTreeOrder.POSFIX);
+        System.out.print("Posfix btree1:");
+        for (Integer integer: btree1) {
+            System.out.print(" " + integer);
+        }
+        System.out.println();
+
+        System.out.println(btree2.getRoot());
+        System.out.println("  " + btree2.rightBinTree().getRoot());
+        System.out.println("    " + btree2.rightBinTree().rightBinTree().getRoot());
+        System.out.print("Infix btree2:");
+        for (Integer integer: btree2) {
+            System.out.print(" " + integer);
+        }
+        System.out.println();
+        btree2.setOrder(BinTreeOrder.PREFIX);
+        System.out.print("Prefix btree2:");
+        for (Integer integer: btree2) {
+            System.out.print(" " + integer);
+        }
+        System.out.println();
+        btree2.setOrder(BinTreeOrder.POSFIX);
+        System.out.print("Posfix btree2:");
+        for (Integer integer: btree2) {
+            System.out.print(" " + integer);
+        }
         System.out.println();
 
     }

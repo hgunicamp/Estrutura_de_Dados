@@ -1,6 +1,10 @@
 package data.structure.tree;
 
-public class BinTree<E extends Comparable<E>> {
+import java.util.Iterator;
+
+import data.structure.list.Fifo;
+
+public class BinTree<E extends Comparable<E>> implements Iterable<E> {
     /**
      * Values to define the tree iteration order.
      * INFIX
@@ -13,6 +17,96 @@ public class BinTree<E extends Comparable<E>> {
 
     private NodeBinTree<E> root;
     private BinTreeOrder order;
+    
+    public class BinTreeIterator implements Iterator<E> {
+        private Fifo<E> fifo;
+
+        /**
+         * Generate infix order.
+         */
+        private Fifo<E> inOrder() {
+            if (null == root) return null;
+            Fifo<E> result = new Fifo<E>();
+            inOrderSearch(root, result);
+            return result;
+        }
+
+        private void inOrderSearch(NodeBinTree<E> start, Fifo<E> fifo) {
+            NodeBinTree<E> left  = start.getLeftChild();
+            NodeBinTree<E> right = start.getRightChild();
+
+            if (null != left)  preOrderSearch(left, fifo);
+            fifo.put(start.getElement());
+            if (null != right) preOrderSearch(right, fifo);
+
+        }
+
+        /**
+         * Generate prefix order.
+         */
+        private Fifo<E> preOrder() {
+            if (null == root) return null;
+            Fifo<E> result = new Fifo<E>();
+            preOrderSearch(root, result);
+            return result;
+        }
+
+        private void preOrderSearch(NodeBinTree<E> start, Fifo<E> fifo) {
+            NodeBinTree<E> left  = start.getLeftChild();
+            NodeBinTree<E> right = start.getRightChild();
+
+            fifo.put(start.getElement());
+            if (null != left)  preOrderSearch(left, fifo);
+            if (null != right) preOrderSearch(right, fifo);
+        }
+
+        /**
+         * Generate posfix order.
+         */
+        private Fifo<E> posOrder() {
+            if (null == root) return null;
+            Fifo<E> result = new Fifo<E>();
+            posOrderSearch(root, result);
+            return result;
+        }
+
+        private void posOrderSearch(NodeBinTree<E> start, Fifo<E> fifo) {
+            NodeBinTree<E> left  = start.getLeftChild();
+            NodeBinTree<E> right = start.getRightChild();
+
+            if (null != left)  posOrderSearch(left, fifo);
+            if (null != right) posOrderSearch(right, fifo);
+            fifo.put(start.getElement());
+
+        }
+
+        public BinTreeIterator() {
+            switch (order) {
+                case PREFIX:
+                    fifo = preOrder();
+                    break;
+                case POSFIX:
+                    fifo = posOrder();
+                    break;
+                default:
+                    fifo = inOrder();
+                    break;
+            }
+        }
+
+        public boolean hasNext() {
+            return fifo != null && !fifo.isEmpty();
+        }
+
+        public E next() {
+            if (fifo.isEmpty()) return null;
+            return fifo.get();
+        }
+    }
+
+    public Iterator<E> iterator() {
+        return new BinTreeIterator();
+    }
 
     // Getters and Setters
     public E getRoot() {
@@ -63,7 +157,7 @@ public class BinTree<E extends Comparable<E>> {
 
     private void add(E element, NodeBinTree<E> root) {
         NodeBinTree<E> nextNode;
-        int comp = root.getElement().compareTo(element);
+        int comp = element.compareTo(root.getElement());
         switch (comp) {
             case -1:
                 nextNode = root.getLeftChild();
