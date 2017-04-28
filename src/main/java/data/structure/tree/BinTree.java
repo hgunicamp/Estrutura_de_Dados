@@ -4,7 +4,7 @@ import java.util.Iterator;
 
 import data.structure.list.Fifo;
 
-public class BinTree<E extends Comparable<E>> implements Iterable<E> {
+public class BinTree<E extends Comparable<E>> implements Iterable<NodeBinTree<E>> {
     /**
      * Values to define the tree iteration order.
      * INFIX
@@ -18,44 +18,44 @@ public class BinTree<E extends Comparable<E>> implements Iterable<E> {
     private NodeBinTree<E> root;
     private BinTreeOrder order;
     
-    public class BinTreeIterator implements Iterator<E> {
-        private Fifo<E> fifo;
+    public class BinTreeIterator implements Iterator<NodeBinTree<E>> {
+        private Fifo<NodeBinTree<E>> fifo;
 
         /**
          * Generate infix order.
          */
-        private Fifo<E> inOrder() {
+        private Fifo<NodeBinTree<E>> inOrder() {
             if (null == root) return null;
-            Fifo<E> result = new Fifo<E>();
+            Fifo<NodeBinTree<E>> result = new Fifo<NodeBinTree<E>>();
             inOrderSearch(root, result);
             return result;
         }
 
-        private void inOrderSearch(NodeBinTree<E> start, Fifo<E> fifo) {
+        private void inOrderSearch(NodeBinTree<E> start, Fifo<NodeBinTree<E>> fifo) {
             NodeBinTree<E> left  = start.getLeftChild();
             NodeBinTree<E> right = start.getRightChild();
 
-            if (null != left)  preOrderSearch(left, fifo);
-            fifo.put(start.getElement());
-            if (null != right) preOrderSearch(right, fifo);
+            if (null != left)  inOrderSearch(left, fifo);
+            fifo.put(start);
+            if (null != right) inOrderSearch(right, fifo);
 
         }
 
         /**
          * Generate prefix order.
          */
-        private Fifo<E> preOrder() {
+        private Fifo<NodeBinTree<E>> preOrder() {
             if (null == root) return null;
-            Fifo<E> result = new Fifo<E>();
+            Fifo<NodeBinTree<E>> result = new Fifo<NodeBinTree<E>>();
             preOrderSearch(root, result);
             return result;
         }
 
-        private void preOrderSearch(NodeBinTree<E> start, Fifo<E> fifo) {
+        private void preOrderSearch(NodeBinTree<E> start, Fifo<NodeBinTree<E>> fifo) {
             NodeBinTree<E> left  = start.getLeftChild();
             NodeBinTree<E> right = start.getRightChild();
 
-            fifo.put(start.getElement());
+            fifo.put(start);
             if (null != left)  preOrderSearch(left, fifo);
             if (null != right) preOrderSearch(right, fifo);
         }
@@ -63,20 +63,20 @@ public class BinTree<E extends Comparable<E>> implements Iterable<E> {
         /**
          * Generate posfix order.
          */
-        private Fifo<E> posOrder() {
+        private Fifo<NodeBinTree<E>> posOrder() {
             if (null == root) return null;
-            Fifo<E> result = new Fifo<E>();
+            Fifo<NodeBinTree<E>> result = new Fifo<NodeBinTree<E>>();
             posOrderSearch(root, result);
             return result;
         }
 
-        private void posOrderSearch(NodeBinTree<E> start, Fifo<E> fifo) {
+        private void posOrderSearch(NodeBinTree<E> start, Fifo<NodeBinTree<E>> fifo) {
             NodeBinTree<E> left  = start.getLeftChild();
             NodeBinTree<E> right = start.getRightChild();
 
             if (null != left)  posOrderSearch(left, fifo);
             if (null != right) posOrderSearch(right, fifo);
-            fifo.put(start.getElement());
+            fifo.put(start);
 
         }
 
@@ -98,13 +98,13 @@ public class BinTree<E extends Comparable<E>> implements Iterable<E> {
             return fifo != null && !fifo.isEmpty();
         }
 
-        public E next() {
+        public NodeBinTree<E> next() {
             if (fifo.isEmpty()) return null;
             return fifo.get();
         }
     }
 
-    public Iterator<E> iterator() {
+    public Iterator<NodeBinTree<E>> iterator() {
         return new BinTreeIterator();
     }
 
@@ -197,6 +197,7 @@ public class BinTree<E extends Comparable<E>> implements Iterable<E> {
     public BinTree<E> leftBinTree() {
         BinTree<E> temp = new BinTree<E>();
         temp.root = this.root.getLeftChild();
+        temp.root.promote();
         return temp;
     }
 
@@ -206,7 +207,27 @@ public class BinTree<E extends Comparable<E>> implements Iterable<E> {
     public BinTree<E> rightBinTree() {
         BinTree<E> temp = new BinTree<E>();
         temp.root = this.root.getRightChild();
+        temp.root.promote();
         return temp;
+    }
+
+    public void cut() {
+        this.root.demote();
+        this.root = null;
+    }
+
+    /**
+     * Returns a array representation of tree
+     */
+    public Object[] toArray() {
+        int depth = this.maxDepth();
+        Object[] result =  new Object[(int) Math.pow(2, depth)];
+        BinTreeIterator iterator = new BinTreeIterator();
+        while (iterator.hasNext()) {
+            NodeBinTree<E> temp = iterator.next();
+            result[temp.position()] = temp;
+        }
+        return result;
     }
 
 }

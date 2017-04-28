@@ -5,6 +5,7 @@ public class NodeBinTree<E extends Comparable<E>> {
     private NodeBinTree<E>     father;
     private NodeBinTree<E>  leftChild;
     private NodeBinTree<E> rightChild;
+    private NodeBinTree<E> demote;
 
     // Getters and Setters
     public E getElement() {
@@ -45,6 +46,7 @@ public class NodeBinTree<E extends Comparable<E>> {
         this.father  = null;
         this.leftChild  = null;
         this.rightChild = null;
+        this.demote = null;
     }
 
     /**
@@ -57,6 +59,7 @@ public class NodeBinTree<E extends Comparable<E>> {
         this.father  = father;
         this.leftChild  = null;
         this.rightChild = null;
+        this.demote = null;
     }
 
     /**
@@ -70,6 +73,7 @@ public class NodeBinTree<E extends Comparable<E>> {
         this.father  = father;
         this.leftChild  = lChild;
         this.rightChild = null;
+        this.demote = null;
     }
 
     /**
@@ -83,6 +87,7 @@ public class NodeBinTree<E extends Comparable<E>> {
         this.father  = father;
         this.leftChild  = lChild;
         this.rightChild = rChild;
+        this.demote = null;
     }
 
     /**
@@ -162,6 +167,36 @@ public class NodeBinTree<E extends Comparable<E>> {
     public NodeBinTree<E> sibling() {
         if (null == father) return null;
         return (this != father.leftChild) ? father.leftChild : father.rightChild;
+    }
+
+    /**
+     * Returns the node position in an array based representation.
+     */
+    public int position() {
+        if (this.isRoot()) return 1;
+        int temp = 2 * father.position();
+        return (amILeftChild()) ? temp : temp + 1;
+    }
+
+    private boolean amILeftChild() {
+        return  father.leftChild == this;
+    }
+
+    public void promote() {
+        if (null != this.demote) return;
+        this.demote = this.father;
+        this.father = null;
+    }
+
+    public void demote() {
+        if (null == this.demote) return;
+        this.father = this.demote;
+        this.demote = null;
+    }
+
+    @Override
+    public String toString() {
+        return element.toString();
     }
 
 }
