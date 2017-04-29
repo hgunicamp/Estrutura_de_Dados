@@ -143,6 +143,16 @@ public class NodeBinTree<E extends Comparable<E>> {
     }
 
     /**
+     * Returns the number of children this node has.
+     */
+    public int howManyChildren() {
+        int result = 0;
+        if (null != leftChild)  result++;
+        if (null != rightChild) result++;
+        return result;
+    }
+
+    /**
      * Informs the number of descendents.
      */
     public int familySize() {
@@ -182,6 +192,14 @@ public class NodeBinTree<E extends Comparable<E>> {
         return  father.leftChild == this;
     }
 
+    /**
+     * Swaps the content of two nodes.
+     */
+    public void swap(NodeBinTree<E> other) {
+        E temp = other.element;
+        other.element = element;
+        element = temp;
+    }
     public void promote() {
         if (null != this.demote) return;
         this.demote = this.father;

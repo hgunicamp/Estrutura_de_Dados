@@ -35,6 +35,13 @@ public class BinTreeGlobalTest {
         System.out.println("]");
         System.out.println();
 
+        System.out.println("Testando busca.");
+        System.out.println("1 em btree1: " + btree1.search(new Integer(1)));
+        System.out.println("4 em btree1: " + btree1.search(new Integer(4)));
+        System.out.println("3 em btree2: " + btree2.search(new Integer(3)));
+        System.out.println("4 em btree2: " + btree2.search(new Integer(4)));
+        System.out.println();
+
         System.out.println("Testando acesso.");
         System.out.println("  " + btree1.getRoot());
         System.out.print(btree1.leftBinTree().getRoot());

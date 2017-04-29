@@ -230,4 +230,36 @@ public class BinTree<E extends Comparable<E>> implements Iterable<NodeBinTree<E>
         return result;
     }
 
+    /**
+     * Search a node in the tree.
+     */
+    public NodeBinTree<E> search(E element) {
+        return searchNextStep(element, this.root);
+    }
+
+    private NodeBinTree<E> searchNextStep(E element, NodeBinTree<E> nextNode) {
+        NodeBinTree<E> next;
+        int comp = element.compareTo(nextNode.getElement());
+        switch (comp) {
+            case -1:
+                next = nextNode.getLeftChild();
+                break;
+            case  1:
+                next = nextNode.getRightChild();
+                break;
+            default:
+                next = nextNode;
+                break;
+        }
+        return (next == nextNode) ? nextNode :
+                   (null != next) ? searchNextStep(element, next) : null;
+    }
+
+    /**
+     * Removes the element inside the node without break the order.
+     */
+    public E remove(NodeBinTree<E> node) {
+        return null; // TODO
+    }
+
 }
