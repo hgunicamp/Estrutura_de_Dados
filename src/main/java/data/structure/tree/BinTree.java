@@ -258,7 +258,7 @@ public class BinTree<E extends Comparable<E>> implements Iterable<NodeBinTree<E>
     /**
      * Rotates to the left by a specific node.
      */
-    public void rotateToLeft(NodeBinTree<E> node) {
+    private void rotateToLeft(NodeBinTree<E> node) {
         NodeBinTree<E> minor = node.minorOnTheRight();
         if (null == minor) return;
 
@@ -294,7 +294,7 @@ public class BinTree<E extends Comparable<E>> implements Iterable<NodeBinTree<E>
     /**
      * Rotates to the right by a specific node.
      */
-    public void rotateToRight(NodeBinTree<E> node) {
+    private void rotateToRight(NodeBinTree<E> node) {
         NodeBinTree<E> largest = node.largestOnTheLeft();
         if (null == largest) return;
 
@@ -327,11 +327,25 @@ public class BinTree<E extends Comparable<E>> implements Iterable<NodeBinTree<E>
 
     }
 
-   /**
+    /**
      * Removes the element inside the node without break the order.
      */
     public E remove(NodeBinTree<E> node) {
-        return null; // TODO
+        if (node.howManyChildren() == 2) this.rotateToLeft(node);
+        NodeBinTree<E> father =  node.getFather();
+        NodeBinTree<E>  child = (node.getLeftChild() != null) ? 
+            node.getLeftChild() : node.getRightChild();
+        if (null != father) {
+            if (father.getLeftChild() == node) {
+                father.setLeftChild(child);
+            } else {
+                father.setRightChild(child);
+            }
+        } else {
+            this.root = child;
+        }
+        if (null != child) child.setFather(father);
+        return node.getElement();
     }
 
     public void printArray() {
