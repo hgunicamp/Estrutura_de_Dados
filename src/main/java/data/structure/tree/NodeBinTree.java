@@ -165,7 +165,7 @@ public class NodeBinTree<E extends Comparable<E>> {
     /**
      * Informs the max depth.
      */
-    int maxDepth() {
+    public int maxDepth() {
         int  leftDepth = (null != leftChild)  ?  leftChild.maxDepth(): 0;
         int rightDepth = (null != rightChild) ? rightChild.maxDepth(): 0;
         return  1 + ((leftDepth > rightDepth) ? leftDepth : rightDepth);
@@ -177,6 +177,26 @@ public class NodeBinTree<E extends Comparable<E>> {
     public NodeBinTree<E> sibling() {
         if (null == father) return null;
         return (this != father.leftChild) ? father.leftChild : father.rightChild;
+    }
+
+    /**
+     * Returns the node with minor content at right of this.
+     */
+    public NodeBinTree<E> minorOnTheRight() {
+        if (null == rightChild) return null;
+        NodeBinTree<E> next = rightChild;
+        while (null != next.leftChild) next = next.leftChild;
+        return next;
+    }
+
+    /**
+     * Returns the node with largest content on the left of this.
+     */
+    public NodeBinTree<E> largestOnTheLeft() {
+        if (null == leftChild) return null;
+        NodeBinTree<E> next = leftChild;
+        while (null != next.rightChild) next = next.rightChild;
+        return next;
     }
 
     /**
