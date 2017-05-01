@@ -1,11 +1,11 @@
 package data.structure.tree;
 
 public class NodeBinTree<E extends Comparable<E>> {
-    private E element;
-    private NodeBinTree<E>     father;
-    private NodeBinTree<E>  leftChild;
-    private NodeBinTree<E> rightChild;
-    private NodeBinTree<E> demote;
+    protected E element;
+    protected NodeBinTree<E>     father;
+    protected NodeBinTree<E>  leftChild;
+    protected NodeBinTree<E> rightChild;
+    protected NodeBinTree<E> demote;
 
     // Getters and Setters
     public E getElement() {
@@ -208,7 +208,7 @@ public class NodeBinTree<E extends Comparable<E>> {
         return (amILeftChild()) ? temp : temp + 1;
     }
 
-    private boolean amILeftChild() {
+    protected boolean amILeftChild() {
         return  father.leftChild == this;
     }
 
