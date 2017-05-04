@@ -144,6 +144,8 @@ public class NodeBinTree<E extends Comparable<E>> {
 
     /**
      * Returns the number of children this node has.
+     * 
+     * @return int
      */
     public int howManyChildren() {
         int result = 0;
@@ -154,6 +156,8 @@ public class NodeBinTree<E extends Comparable<E>> {
 
     /**
      * Informs the number of descendents.
+     * 
+     * @return int
      */
     public int familySize() {
         int temp = 1;
@@ -164,6 +168,8 @@ public class NodeBinTree<E extends Comparable<E>> {
 
     /**
      * Informs the max depth.
+     * 
+     * @return int
      */
     public int maxDepth() {
         int  leftDepth = (null != leftChild)  ?  leftChild.maxDepth(): 0;
@@ -173,6 +179,8 @@ public class NodeBinTree<E extends Comparable<E>> {
 
     /**
      * Returns the sibling if it exists.
+     * 
+     * @return NodeBinTree<E>
      */
     public NodeBinTree<E> sibling() {
         if (null == father) return null;
@@ -181,6 +189,8 @@ public class NodeBinTree<E extends Comparable<E>> {
 
     /**
      * Returns the node with minor content at right of this.
+     * 
+     * @return NodeBinTree<E>
      */
     public NodeBinTree<E> minorOnTheRight() {
         if (null == rightChild) return null;
@@ -191,6 +201,8 @@ public class NodeBinTree<E extends Comparable<E>> {
 
     /**
      * Returns the node with largest content on the left of this.
+     * 
+     * @return NodeBinTree<E>
      */
     public NodeBinTree<E> largestOnTheLeft() {
         if (null == leftChild) return null;
@@ -201,6 +213,8 @@ public class NodeBinTree<E extends Comparable<E>> {
 
     /**
      * Returns the node position in an array based representation.
+     * 
+     * @return int
      */
     public int position() {
         if (this.isRoot()) return 1;
@@ -208,6 +222,11 @@ public class NodeBinTree<E extends Comparable<E>> {
         return (amILeftChild()) ? temp : temp + 1;
     }
 
+    /**
+     * Informs if this node is a left child.
+     * 
+     * @return boolean
+     */
     protected boolean amILeftChild() {
         return  father.leftChild == this;
     }
@@ -220,12 +239,19 @@ public class NodeBinTree<E extends Comparable<E>> {
         other.element = element;
         element = temp;
     }
+
+    /**
+     * Become this node a root node.
+     */
     public void promote() {
         if (null != this.demote) return;
         this.demote = this.father;
         this.father = null;
     }
 
+    /**
+     * Brings this node back to condition before it became a root node.
+     */
     public void demote() {
         if (null == this.demote) return;
         this.father = this.demote;
