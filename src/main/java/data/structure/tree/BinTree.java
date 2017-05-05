@@ -175,7 +175,7 @@ public class BinTree<E extends Comparable<E>> implements Iterable<NodeBinTree<E>
             nextNode = new NodeBinTree<E>(element, root);
             root.setLeftChild(nextNode);
         } else {
-            nextNode = new NodeBinTree<E>(element, root, root.getRightChild());
+            nextNode = new NodeBinTree<E>(element, root, null, root.getRightChild());
             root.setRightChild(nextNode);
         }
     }
