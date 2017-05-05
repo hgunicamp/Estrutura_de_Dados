@@ -156,26 +156,16 @@ public class BinTree<E extends Comparable<E>> implements Iterable<NodeBinTree<E>
     }
 
     private void add(E element, NodeBinTree<E> root) {
-        NodeBinTree<E> nextNode;
         int comp = element.compareTo(root.getElement());
-        switch (comp) {
-            case -1:
-                nextNode = root.getLeftChild();
-                break;
-            case  1:
-                nextNode = root.getRightChild();
-                break;
-            default:
-                nextNode = null;
-                break;
-        }
+        NodeBinTree<E> nextNode = (comp == -1) ? root.getLeftChild() : root.getRightChild();
+
         if (null != nextNode) {
             add(element, nextNode);
         } else if (comp == -1) {
             nextNode = new NodeBinTree<E>(element, root);
             root.setLeftChild(nextNode);
         } else {
-            nextNode = new NodeBinTree<E>(element, root, null, root.getRightChild());
+            nextNode = new NodeBinTree<E>(element, root);
             root.setRightChild(nextNode);
         }
     }
