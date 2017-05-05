@@ -15,8 +15,8 @@ public class BinTree<E extends Comparable<E>> implements Iterable<NodeBinTree<E>
         INFIX, PREFIX, POSFIX
     }
 
-    private NodeBinTree<E> root;
-    private BinTreeOrder order;
+    protected NodeBinTree<E> root;
+    protected BinTreeOrder order;
     
     public class BinTreeIterator implements Iterator<NodeBinTree<E>> {
         private Fifo<NodeBinTree<E>> fifo;
@@ -171,12 +171,12 @@ public class BinTree<E extends Comparable<E>> implements Iterable<NodeBinTree<E>
         }
         if (null != nextNode) {
             add(element, nextNode);
-        } else if (comp == 1) {
+        } else if (comp == -1) {
+            nextNode = new NodeBinTree<E>(element, root);
+            root.setLeftChild(nextNode);
+        } else {
             nextNode = new NodeBinTree<E>(element, root);
             root.setRightChild(nextNode);
-        } else {
-            nextNode = new NodeBinTree<E>(element, root, root.getLeftChild());
-            root.setLeftChild(nextNode);
         }
     }
 
