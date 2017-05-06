@@ -125,5 +125,23 @@ public class BinTreeGlobalTest {
         System.out.println("Depois");
         btree2.printArray();
 
+        // Testando rotação interna.
+        System.out.println("Testando rotação interna.");
+        btree1.add(new Integer(0));
+        btree1.add(new Integer(1));
+        System.out.println("Rotacionando btree1 para direita em torno de 2");
+        System.out.println("Antes");
+        btree1.printArray();
+        btree1.search(new Integer(2)).rightInternalRotation();
+        System.out.println("Depois");
+        btree1.printArray();
+        System.out.println("Rotacionando btree2 para esquerda em torno de 2");
+        System.out.println("Antes");
+        btree2.printArray();
+        btree2.search(new Integer(2)).leftInternalRotation();
+        System.out.println("Depois");
+        btree2.printArray();
+
+
     }
 }

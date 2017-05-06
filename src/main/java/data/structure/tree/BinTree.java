@@ -134,6 +134,8 @@ public class BinTree<E extends Comparable<E>> implements Iterable<NodeBinTree<E>
 
     /**
      * Informs if the tree is empty.
+     * 
+     * @return boolean
      */
     public boolean isEmpty() {
         return null == this.root; 
@@ -141,6 +143,8 @@ public class BinTree<E extends Comparable<E>> implements Iterable<NodeBinTree<E>
 
     /**
      * Informs the number of nodes in the tree.
+     * 
+     * @return int
      */
     public int size() {
         if (null == this.root) return 0;
@@ -149,18 +153,25 @@ public class BinTree<E extends Comparable<E>> implements Iterable<NodeBinTree<E>
 
     /**
      * Informs the maximum depth of this tree.
+     * 
+     * @return int
      */
     public int maxDepth() {
         if (null == this.root) return 0;
         return this.root.maxDepth();
     }
 
-    private void add(E element, NodeBinTree<E> root) {
+    /**
+     * Inserts a new element into tree.
+     * 
+     * @return NodeBinTree<E>
+     */
+    private NodeBinTree<E> add(E element, NodeBinTree<E> root) {
         int comp = element.compareTo(root.getElement());
         NodeBinTree<E> nextNode = (comp == -1) ? root.getLeftChild() : root.getRightChild();
 
         if (null != nextNode) {
-            add(element, nextNode);
+            nextNode = add(element, nextNode);
         } else if (comp == -1) {
             nextNode = new NodeBinTree<E>(element, root);
             root.setLeftChild(nextNode);
@@ -168,21 +179,27 @@ public class BinTree<E extends Comparable<E>> implements Iterable<NodeBinTree<E>
             nextNode = new NodeBinTree<E>(element, root);
             root.setRightChild(nextNode);
         }
+        return nextNode;
     }
 
     /**
      * Inserts a new element into tree.
+     * 
+     * @return NodeBinTree<E>
      */
-    public void add(E element) {
+    public NodeBinTree<E> add(E element) {
         if (null != this.root) {
-            add(element, this.root);
+            return add(element, this.root);
         } else {
             this.root = new NodeBinTree<E>(element);
+            return this.root;
         }
     }
 
     /**
      * Returns leftt sub-tree.
+     * 
+     * @return BinTree<E>
      */
     public BinTree<E> leftBinTree() {
         BinTree<E> temp = new BinTree<E>();
@@ -193,6 +210,8 @@ public class BinTree<E extends Comparable<E>> implements Iterable<NodeBinTree<E>
 
     /**
      * Returns right sub-tree.
+     * 
+     * @return BinTree<E>
      */
     public BinTree<E> rightBinTree() {
         BinTree<E> temp = new BinTree<E>();
@@ -201,13 +220,18 @@ public class BinTree<E extends Comparable<E>> implements Iterable<NodeBinTree<E>
         return temp;
     }
 
+    /**
+     * Makes a node returns to its original tree.
+     */
     public void cut() {
         this.root.demote();
         this.root = null;
     }
 
     /**
-     * Returns a array representation of tree
+     * Returns a array representation of tree.
+     * 
+     * @return Object[]
      */
     public Object[] toArray() {
         int depth = this.maxDepth();
@@ -222,12 +246,19 @@ public class BinTree<E extends Comparable<E>> implements Iterable<NodeBinTree<E>
 
     /**
      * Search a node in the tree.
+     * 
+     * @return NodeBinTree<E>
      */
     public NodeBinTree<E> search(E element) {
         return searchNextStep(element, this.root);
     }
 
-    private NodeBinTree<E> searchNextStep(E element, NodeBinTree<E> nextNode) {
+    /**
+     * Search a node in the tree starting in spefic node.
+     * 
+     * @return NodeBinTree<E>
+     */
+    public NodeBinTree<E> searchNextStep(E element, NodeBinTree<E> nextNode) {
         NodeBinTree<E> next;
         int comp = element.compareTo(nextNode.getElement());
         switch (comp) {
@@ -319,6 +350,8 @@ public class BinTree<E extends Comparable<E>> implements Iterable<NodeBinTree<E>
 
     /**
      * Removes the element inside the node without break the order.
+     * 
+     * @return E
      */
     public E remove(NodeBinTree<E> node) {
         if (node.howManyChildren() == 2) this.rotateToLeft(node);

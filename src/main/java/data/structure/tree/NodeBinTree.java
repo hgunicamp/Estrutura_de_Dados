@@ -232,6 +232,52 @@ public class NodeBinTree<E extends Comparable<E>> {
     }
 
     /**
+     * Performs a internal left rotation.
+     * 
+     * @return NodeBinTree<E>
+     */
+    public NodeBinTree<E> leftInternalRotation() {
+        NodeBinTree<E> A = this;
+        NodeBinTree<E> B = this.rightChild;
+        B.father = A.father;
+        A.father = B;
+        A.rightChild = B.leftChild;
+        B.leftChild.father = A;
+        B.leftChild = A;
+        if (null != B.father) {
+            if (B.father.leftChild == A) {
+                B.father.leftChild = B;
+            } else {
+                B.father.rightChild = B;
+            }
+        }
+        return B;
+    }
+
+    /**
+     * Performs a internal right rotation.
+     * 
+     * @return NodeBinTree<E>
+     */
+    public NodeBinTree<E> rightInternalRotation() {
+        NodeBinTree<E> B = this;
+        NodeBinTree<E> A = this.leftChild;
+        A.father = B.father;
+        B.father = A;
+        B.leftChild = A.rightChild; 
+        A.rightChild.father = B;
+        A.rightChild = B;
+        if (null != A.father) {
+            if (A.father.leftChild == B) {
+                A.father.leftChild = A;
+            } else {
+                A.father.rightChild = A;
+            }
+        }
+        return A;
+    }
+
+    /**
      * Swaps the content of two nodes.
      */
     public void swap(NodeBinTree<E> other) {
