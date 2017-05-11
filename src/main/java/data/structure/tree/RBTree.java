@@ -59,7 +59,7 @@ public class RBTree<E extends Comparable<E>> extends BinTree<E> {
 
         if (father.isBlack()) return;
 
-        NodeRBTree<E>       uncle = (NodeRBTree<E>) father.sibling();
+        NodeRBTree<E> uncle = (NodeRBTree<E>) father.sibling();
         if (null != uncle && uncle.isRed()) {
             uncle.setBlack();
             father.setBlack();
