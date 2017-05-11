@@ -54,5 +54,11 @@ public class RBTreeGlobalTest {
 
         btree1.add(new Integer(16));
         btree1.printArray();
+
+        btree1.add(new Integer(14));
+        btree1.printArray();
+
+        btree1.add(new Integer(18));
+        btree1.printArray();
     }
 }
