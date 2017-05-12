@@ -45,7 +45,7 @@ public class RBTree<E extends Comparable<E>> extends BinTree<E> {
     /**
      * Makes the rebalance after insertion.
      */
-    private void RBTreeRebalance(NodeRBTree<E> startPoint) {
+    private void rebalanceAfterAdd(NodeRBTree<E> startPoint) {
         NodeRBTree<E> father = (NodeRBTree<E>) startPoint.getFather();
         if (null == father) {
             this.root = startPoint;
@@ -90,7 +90,7 @@ public class RBTree<E extends Comparable<E>> extends BinTree<E> {
                 default:
             }
         }
-        RBTreeRebalance(startPoint);
+        rebalanceAfterAdd(startPoint);
     }
 
     /**
@@ -102,7 +102,7 @@ public class RBTree<E extends Comparable<E>> extends BinTree<E> {
         NodeRBTree<E> startPoint;
         if (null != this.root) {
             startPoint = add(element, (NodeRBTree<E>) this.root);
-            RBTreeRebalance(startPoint);
+            rebalanceAfterAdd(startPoint);
             ((NodeRBTree<E>) this.root).setBlack();
         } else {
             this.root = new NodeRBTree<E>(element);
@@ -110,4 +110,27 @@ public class RBTree<E extends Comparable<E>> extends BinTree<E> {
         }
         return startPoint;
     }
+
+    public E remove(NodeRBTree<E> node) {
+        if (null == node) return null;
+        NodeRBTree<E>   leaf = (NodeRBTree<E>) removingTravel(node);
+        NodeRBTree<E> father = (NodeRBTree<E>) leaf.getFather();
+        if (null == father) {
+            this.root = null;
+            return leaf.getElement();
+        }
+        if (leaf.amILeftChild()) {
+            father.setLeftChild(null);
+        } else {
+            father.setRightChild(null);
+        }
+        if (leaf.isBlack() && father.isBlack()) father.setDoubleBlack();
+        rebalanceAfterRemove(father);
+        return leaf.getElement();
+    }
+
+    private void rebalanceAfterRemove(NodeRBTree<E> node) {
+        if (null == node) return;
+    }
+
 }

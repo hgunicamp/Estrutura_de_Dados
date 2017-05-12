@@ -283,7 +283,7 @@ public class BinTree<E extends Comparable<E>> implements Iterable<NodeBinTree<E>
      */
     public E remove(NodeBinTree<E> node) {
         if (null == node) return null;
-        NodeBinTree<E> leaf = removingTravel(node);
+        NodeBinTree<E>   leaf = removingTravel(node);
         NodeBinTree<E> father = leaf.getFather();
         if (null == father) {
             this.root = null;
