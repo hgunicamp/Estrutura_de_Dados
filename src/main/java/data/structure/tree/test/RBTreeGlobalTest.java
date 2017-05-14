@@ -60,5 +60,36 @@ public class RBTreeGlobalTest {
 
         btree1.add(new Integer(18));
         btree1.printArray();
+        System.out.println();
+
+        // Teste de deleção
+        System.out.println("Teste de deleção");
+        btree1.remove((NodeRBTree<Integer>) btree1.search(new Integer(14)));
+        btree1.remove((NodeRBTree<Integer>) btree1.search(new Integer(18)));
+        btree1.remove((NodeRBTree<Integer>) btree1.search(new Integer(35)));
+        btree1.remove((NodeRBTree<Integer>) btree1.search(new Integer(40)));
+        btree1.printArray();
+        System.out.println("Removendo 13.");
+        btree1.remove((NodeRBTree<Integer>) btree1.search(new Integer(13)));
+        btree1.printArray();
+        System.out.println("Removendo 30.");
+        btree1.remove((NodeRBTree<Integer>) btree1.search(new Integer(30)));
+        btree1.printArray();
+
+        System.out.println("Inserindo 7, 14, 18, 19.");
+        btree1.add(new Integer(7));
+        btree1.add(new Integer(14));
+        btree1.add(new Integer(18));
+        btree1.add(new Integer(19));
+        btree1.add(new Integer(16));
+        btree1.printArray();
+
+        System.out.println("Removendo 37.");
+        btree1.remove((NodeRBTree<Integer>) btree1.search(new Integer(37)));
+        btree1.printArray();
+
+        System.out.println("Removendo 15.");
+        btree1.remove((NodeRBTree<Integer>) btree1.search(new Integer(15)));
+        btree1.printArray();
     }
 }

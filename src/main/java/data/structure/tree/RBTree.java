@@ -1,5 +1,7 @@
 package data.structure.tree;
 
+import org.omg.PortableInterceptor.InvalidSlot;
+
 public class RBTree<E extends Comparable<E>> extends BinTree<E> {
 
     /**
@@ -70,22 +72,22 @@ public class RBTree<E extends Comparable<E>> extends BinTree<E> {
             temp += (startPoint.amILeftChild()) ? 1 : 0;
             switch (temp) {
                 case 1:
-                    father.rightInternalRotation();
+                    father.rightInternalRotation(null);
                     father = startPoint;
                     startPoint = (NodeRBTree<E>) father.rightChild;
                 case 0:
                     father.setBlack();
                     grandfather.setRed();
-                    grandfather.leftInternalRotation();
+                    grandfather.leftInternalRotation(null);
                     break;
                 case 2:
-                    father.leftInternalRotation();
+                    father.leftInternalRotation(null);
                     father = startPoint;
                     startPoint = (NodeRBTree<E>) father.leftChild;
                 case 3:
                     father.setBlack();
                     grandfather.setRed();
-                    grandfather.rightInternalRotation();
+                    grandfather.rightInternalRotation(null);
                     break;
                 default:
             }
@@ -119,18 +121,85 @@ public class RBTree<E extends Comparable<E>> extends BinTree<E> {
             this.root = null;
             return leaf.getElement();
         }
+        // Rebalance process.
+        rebalanceAfterRemove(leaf);
+        ((NodeRBTree<E>) this.root).setBlack();
+        // Removing the leaf
         if (leaf.amILeftChild()) {
             father.setLeftChild(null);
         } else {
             father.setRightChild(null);
         }
-        if (leaf.isBlack() && father.isBlack()) father.setDoubleBlack();
-        rebalanceAfterRemove(father);
         return leaf.getElement();
     }
 
     private void rebalanceAfterRemove(NodeRBTree<E> node) {
-        if (null == node) return;
+        System.out.println("node = " + node); // DEBUG
+        if (null == node || node.isRed()) return;
+        NodeRBTree<E> sibling = (NodeRBTree<E>) node.sibling();
+        NodeRBTree<E>  father = (NodeRBTree<E>) node.getFather();
+        NodeRBTree<E> nextNode;
+        int opCase;
+        // Case black sibling with black children
+        opCase  = (null == sibling || sibling.isBlack() && !sibling.doIHaveRedChild()) ? 1 : 0;
+        // Case black sibling with at least one red child
+        opCase += (null != sibling && sibling.isBlack() &&  sibling.doIHaveRedChild()) ? 2 : 0;
+        // Case red sibling
+        opCase += (null != sibling && sibling.isRed()) ? 3 : 0;
+        System.out.println("opCase = " + opCase); // DEBUG
+
+        switch (opCase) {
+            case 1:
+                if (null != sibling) {
+                    sibling.setRed();
+                }
+                if (father.isRed()) {
+                    father.setBlack();
+                    nextNode = null;
+                } else {
+                    nextNode = father;
+                }
+                break;
+            case 2:
+                boolean isLeft = node.amILeftChild();
+                NodeRBTree<E> niece = myCloseRedNiece(isLeft, sibling);
+                if (null != niece) {
+                    niece.setBlack();
+                    if (isLeft) {
+                        sibling.rightInternalRotation(null);
+                        this.root = father.leftInternalRotation(this.root);
+                    } else {
+                        sibling.leftInternalRotation(null);
+                        this.root = father.rightInternalRotation(this.root);
+                    }
+                } else {
+                    if (isLeft) {
+                        ((NodeRBTree<E>) sibling.getRightChild()).setBlack();
+                        this.root = father.leftInternalRotation(this.root);
+                    } else {
+                        ((NodeRBTree<E>) sibling.getLeftChild()).setBlack();
+                        this.root = father.rightInternalRotation(this.root);
+                    }
+                }
+                nextNode = null;
+                break;
+            default:
+                sibling.setBlack();
+                father.setRed();
+                if (node.amILeftChild()) {
+                    this.root = father.leftInternalRotation(this.root);
+                } else {
+                    this.root = father.rightInternalRotation(this.root);
+                }
+                nextNode = node;
+                break;
+        }
+        rebalanceAfterRemove(nextNode);
+    }
+
+    private NodeRBTree<E> myCloseRedNiece(boolean isLeft, NodeRBTree<E> sibling) {
+        NodeRBTree<E> niece = (NodeRBTree<E>) ((isLeft) ? sibling.getLeftChild() : sibling.getRightChild());
+        return (niece.isRed()) ? ((niece.howManyChildren() > 0) ? niece : null) : null;
     }
 
 }

@@ -236,7 +236,7 @@ public class NodeBinTree<E extends Comparable<E>> {
      * 
      * @return NodeBinTree<E>
      */
-    public NodeBinTree<E> leftInternalRotation() {
+    public NodeBinTree<E> leftInternalRotation(NodeBinTree<E> root) {
         NodeBinTree<E> A = this;
         NodeBinTree<E> B = this.rightChild;
         NodeBinTree<E> C = B.leftChild;
@@ -253,7 +253,7 @@ public class NodeBinTree<E extends Comparable<E>> {
                 father.rightChild = B;
             }
         }
-        return B;
+        return (this != root) ? root: B;
     }
 
     /**
@@ -261,7 +261,7 @@ public class NodeBinTree<E extends Comparable<E>> {
      * 
      * @return NodeBinTree<E>
      */
-    public NodeBinTree<E> rightInternalRotation() {
+    public NodeBinTree<E> rightInternalRotation(NodeBinTree<E> root) {
         NodeBinTree<E> B = this;
         NodeBinTree<E> A = this.leftChild;
         NodeBinTree<E> C = A.rightChild;
@@ -278,7 +278,7 @@ public class NodeBinTree<E extends Comparable<E>> {
                 father.rightChild = A;
             }
         }
-        return A;
+        return (this != root) ? root: A;
     }
 
     /**

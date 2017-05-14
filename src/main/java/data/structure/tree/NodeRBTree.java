@@ -2,7 +2,6 @@ package data.structure.tree;
 
 public class NodeRBTree<E extends Comparable<E>> extends NodeBinTree<E> {
     private boolean red;
-    private boolean doubleBlack;
 
     // Getters and Setters
     public boolean isRed() {
@@ -11,20 +10,10 @@ public class NodeRBTree<E extends Comparable<E>> extends NodeBinTree<E> {
 
     public void setRed() {
         this.red = true;
-        this.doubleBlack = false;
     }
 
     public boolean isBlack() {
         return !red;
-    }
-
-    public boolean isDoubleblack() {
-        return this.doubleBlack;
-    }
-
-    public void setDoubleBlack() {
-        this.red = false;
-        this.doubleBlack = true;
     }
 
     public void setBlack() {
@@ -40,7 +29,6 @@ public class NodeRBTree<E extends Comparable<E>> extends NodeBinTree<E> {
     public NodeRBTree(E element) {
         super(element);
         this.red = false;
-        this.doubleBlack = false;
     }
 
     /**
@@ -51,7 +39,6 @@ public class NodeRBTree<E extends Comparable<E>> extends NodeBinTree<E> {
     public NodeRBTree(E element, NodeRBTree<E> father) {
         super(element, father);
         this.red = true;
-        this.doubleBlack = false;
     }
 
     /**
@@ -85,6 +72,20 @@ public class NodeRBTree<E extends Comparable<E>> extends NodeBinTree<E> {
      */
     public boolean isMyUncleBlack() {
         return (null != father) ? ((NodeRBTree<E>) father).isMySiblingBlack() : true;
+    }
+
+    /**
+     * Informs if I have at least one red child.
+     */
+    public boolean doIHaveRedChild() {
+        boolean result = false;
+        if (null != leftChild) {
+            result |= ((NodeRBTree<E>) leftChild).red;
+        }
+        if (null != rightChild) {
+            result |= ((NodeRBTree<E>) rightChild).red;
+        }
+        return result;
     }
 
     @Override
