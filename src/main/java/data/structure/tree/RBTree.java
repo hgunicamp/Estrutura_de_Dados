@@ -1,7 +1,5 @@
 package data.structure.tree;
 
-import org.omg.PortableInterceptor.InvalidSlot;
-
 public class RBTree<E extends Comparable<E>> extends BinTree<E> {
 
     /**
@@ -134,7 +132,6 @@ public class RBTree<E extends Comparable<E>> extends BinTree<E> {
     }
 
     private void rebalanceAfterRemove(NodeRBTree<E> node) {
-        System.out.println("node = " + node); // DEBUG
         if (null == node || node.isRed()) return;
         NodeRBTree<E> sibling = (NodeRBTree<E>) node.sibling();
         NodeRBTree<E>  father = (NodeRBTree<E>) node.getFather();
@@ -146,7 +143,6 @@ public class RBTree<E extends Comparable<E>> extends BinTree<E> {
         opCase += (null != sibling && sibling.isBlack() &&  sibling.doIHaveRedChild()) ? 2 : 0;
         // Case red sibling
         opCase += (null != sibling && sibling.isRed()) ? 3 : 0;
-        System.out.println("opCase = " + opCase); // DEBUG
 
         switch (opCase) {
             case 1:
@@ -174,12 +170,13 @@ public class RBTree<E extends Comparable<E>> extends BinTree<E> {
                     }
                 } else {
                     if (isLeft) {
-                        ((NodeRBTree<E>) sibling.getRightChild()).setBlack();
+                        niece = (NodeRBTree<E>) sibling.getRightChild();
                         this.root = father.leftInternalRotation(this.root);
                     } else {
-                        ((NodeRBTree<E>) sibling.getLeftChild()).setBlack();
+                        niece = (NodeRBTree<E>) sibling.getLeftChild();
                         this.root = father.rightInternalRotation(this.root);
                     }
+                    niece.setBlack();
                 }
                 nextNode = null;
                 break;
@@ -199,7 +196,7 @@ public class RBTree<E extends Comparable<E>> extends BinTree<E> {
 
     private NodeRBTree<E> myCloseRedNiece(boolean isLeft, NodeRBTree<E> sibling) {
         NodeRBTree<E> niece = (NodeRBTree<E>) ((isLeft) ? sibling.getLeftChild() : sibling.getRightChild());
-        return (niece.isRed()) ? ((niece.howManyChildren() > 0) ? niece : null) : null;
+        return (niece.isRed()) ? niece: null;
     }
 
 }

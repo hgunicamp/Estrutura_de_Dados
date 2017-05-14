@@ -91,5 +91,13 @@ public class RBTreeGlobalTest {
         System.out.println("Removendo 15.");
         btree1.remove((NodeRBTree<Integer>) btree1.search(new Integer(15)));
         btree1.printArray();
+
+        System.out.println("Removendo 15.");
+        btree1.remove((NodeRBTree<Integer>) btree1.search(new Integer(15)));
+        btree1.printArray();
+
+        System.out.println("Removendo 10.");
+        btree1.remove((NodeRBTree<Integer>) btree1.search(new Integer(10)));
+        btree1.printArray();
     }
 }
