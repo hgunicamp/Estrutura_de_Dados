@@ -66,7 +66,7 @@ public class RBTree<E extends Comparable<E>> extends BinTree<E> {
             grandfather.setRed();
             startPoint = grandfather;
         } else {
-            int temp = (father.amILeftChild()) ? 2 : 0;
+            int  temp = (father.amILeftChild()) ? 2 : 0;
             temp += (startPoint.amILeftChild()) ? 1 : 0;
             switch (temp) {
                 case 1:
@@ -158,9 +158,9 @@ public class RBTree<E extends Comparable<E>> extends BinTree<E> {
                 break;
             case 2:
                 boolean isLeft = node.amILeftChild();
-                NodeRBTree<E> niece = myCloseRedNiece(isLeft, sibling);
-                if (null != niece) {
-                    niece.setBlack();
+                NodeRBTree<E> nephew = myCloseRedNephew(isLeft, sibling);
+                if (null != nephew) {
+                    nephew.setBlack();
                     if (isLeft) {
                         sibling.rightInternalRotation(null);
                         this.root = father.leftInternalRotation(this.root);
@@ -170,13 +170,13 @@ public class RBTree<E extends Comparable<E>> extends BinTree<E> {
                     }
                 } else {
                     if (isLeft) {
-                        niece = (NodeRBTree<E>) sibling.getRightChild();
+                        nephew = (NodeRBTree<E>) sibling.getRightChild();
                         this.root = father.leftInternalRotation(this.root);
                     } else {
-                        niece = (NodeRBTree<E>) sibling.getLeftChild();
+                        nephew = (NodeRBTree<E>) sibling.getLeftChild();
                         this.root = father.rightInternalRotation(this.root);
                     }
-                    niece.setBlack();
+                    nephew.setBlack();
                 }
                 nextNode = null;
                 break;
@@ -194,9 +194,9 @@ public class RBTree<E extends Comparable<E>> extends BinTree<E> {
         rebalanceAfterRemove(nextNode);
     }
 
-    private NodeRBTree<E> myCloseRedNiece(boolean isLeft, NodeRBTree<E> sibling) {
-        NodeRBTree<E> niece = (NodeRBTree<E>) ((isLeft) ? sibling.getLeftChild() : sibling.getRightChild());
-        return (niece.isRed()) ? niece: null;
+    private NodeRBTree<E> myCloseRedNephew(boolean isLeft, NodeRBTree<E> sibling) {
+        NodeRBTree<E> nephew = (NodeRBTree<E>) ((isLeft) ? sibling.getLeftChild() : sibling.getRightChild());
+        return (nephew.isRed()) ? nephew: null;
     }
 
 }
