@@ -297,8 +297,13 @@ public class BinTree<E extends Comparable<E>> implements Iterable<NodeBinTree<E>
 
     protected NodeBinTree<E> removingTravel(NodeBinTree<E> node) {
         if (node.isLeaf()) return node;
-        NodeBinTree<E> nextNode = node.minorOnTheRight();
-        if (null == nextNode) nextNode = node.largestOnTheLeft();
+        NodeBinTree<E>  leftChild = node.getLeftChild();
+        NodeBinTree<E> rightChild = node.getRightChild();
+        int  leftFamily = (null != leftChild)  ?  leftChild.familySize() : 0;
+        int rightFamily = (null != rightChild) ? rightChild.familySize() : 0;
+        NodeBinTree<E> nextNode =
+            (rightFamily > leftFamily) ?
+                node.minorOnTheRight() : node.largestOnTheLeft();
         node.swap(nextNode);
         return removingTravel(nextNode);
     }
