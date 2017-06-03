@@ -21,6 +21,6 @@ public class Acessorio implements Serializable {
 
     @Override
     public int hashCode() {
-       return nome.hashCode(); 
+       return nome.hashCode();
     }
 }
