@@ -46,6 +46,11 @@ public class Proprietario implements Serializable {
         this.autoHashes = new ArrayList<Integer>();
     }
 
+    public Proprietario(String nome, int cnpj) {
+        this.nome = nome;
+        this.cnpj = cnpj;
+    }
+
     /**
      * Insere um automóvel à lista de hashes
      */
@@ -66,7 +71,8 @@ public class Proprietario implements Serializable {
      */
     @Override
     public int hashCode() {
-        return (new Integer(cnpj)).hashCode();
+        String hashGen = nome + cnpj;
+        return hashGen.hashCode();
     }
 
 }

@@ -53,6 +53,12 @@ public class Automovel implements Serializable {
         this.acessoriosHashes = new ArrayList<Integer>();
     }
 
+    public Automovel(String nome, String fabricante, int ano) {
+        this.nome = nome;
+        this.fabricante = fabricante;
+        this.ano = ano;
+    }
+
     @Override
     public int hashCode() {
         String hashGen = nome + fabricante + ano;

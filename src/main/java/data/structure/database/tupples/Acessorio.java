@@ -1,7 +1,6 @@
 package data.structure.database.tupples;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 
 public class Acessorio implements Serializable {
     private String nome;
@@ -15,8 +14,13 @@ public class Acessorio implements Serializable {
         this.nome = nome;
     }
 
+    // Constructor
+    public Acessorio(String nome) {
+        this.nome = nome;
+    }
+
     @Override
     public int hashCode() {
-        return nome.hashCode();
+       return nome.hashCode(); 
     }
 }
