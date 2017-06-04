@@ -95,9 +95,11 @@ public class Index {
      * Removes a index from the indexTree.
      */
     public void removeIndex(int hashCode) {
-        this.modified = true;
         NodeRBTree<IndexElement> node = (NodeRBTree<IndexElement>) indexTree.search(new IndexElement(hashCode));
-        this.indexTree.remove(node);
+        if (null != node) {
+            this.modified = true;
+            this.indexTree.remove(node);
+        }
     }
 
 }
