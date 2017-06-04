@@ -2,7 +2,7 @@ package data.structure.database.indexes;
 
 import java.io.Serializable;
 
-public class Index implements Comparable<Index>, Serializable {
+public class IndexElement implements Comparable<IndexElement>, Serializable {
 
     protected int hashCode;
     protected int initPosition;
@@ -34,19 +34,19 @@ public class Index implements Comparable<Index>, Serializable {
     }
 
     // Constructors
-    public Index() {
+    public IndexElement() {
         this.hashCode = 0;
         this.initPosition = 0;
         this.size = 0;
     }
 
-    public Index(int hashCode, int initPos, int size) {
+    public IndexElement(int hashCode, int initPos, int size) {
         this.hashCode = hashCode;
         this.initPosition = initPos;
         this.size = size;
     }
 
-    public int compareTo(Index other) {
+    public int compareTo(IndexElement other) {
         return (this.hashCode < other.hashCode) ? -1 : (this.hashCode > other.hashCode) ? 1 : 0;
     } 
 }
