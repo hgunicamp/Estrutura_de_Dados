@@ -75,4 +75,9 @@ public class Proprietario implements Serializable {
         return hashGen.hashCode();
     }
 
+    @Override
+    public String toString() {
+        return "[nome: " + nome + " cnpj: " + cnpj + "]";
+    }
+
 }

@@ -23,4 +23,9 @@ public class Acessorio implements Serializable {
     public int hashCode() {
        return nome.hashCode();
     }
+
+    @Override
+    public String toString() {
+        return "[acessosio: " + nome + "]";
+    }
 }

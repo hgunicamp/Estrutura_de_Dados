@@ -9,6 +9,7 @@ public class Automovel implements Serializable {
     private String fabricante;
     private String placa;
     private int ano;
+    private int donoHashCode;
     private ArrayList<Integer> acessoriosHashes;
 
     // Getters and Setters
@@ -44,6 +45,14 @@ public class Automovel implements Serializable {
         this.ano = ano;
     }
 
+    public int getDonoHashCode() {
+        return this.donoHashCode;
+    }
+
+    public void setDonoHashCode(int donoHashCode) {
+        this.donoHashCode = donoHashCode;
+    }
+
     public ArrayList<Integer> getAcessoriosHashes() {
         return this.acessoriosHashes;
     }
@@ -53,15 +62,16 @@ public class Automovel implements Serializable {
         this.acessoriosHashes = new ArrayList<Integer>();
     }
 
-    public Automovel(String nome, String fabricante, int ano) {
+    public Automovel(String nome, String fabricante, int ano, int donoHashCode) {
         this.nome = nome;
         this.fabricante = fabricante;
         this.ano = ano;
+        this.donoHashCode = donoHashCode;
     }
 
     @Override
     public int hashCode() {
-        String hashGen = nome + fabricante + ano;
+        String hashGen = nome + fabricante + ano + donoHashCode;
         return hashGen.hashCode();
     }
 
@@ -78,6 +88,11 @@ public class Automovel implements Serializable {
     public void remove(Acessorio acessorio) {
         int index = this.acessoriosHashes.indexOf(acessorio.hashCode());
         this.acessoriosHashes.remove(index);
+    }
+
+    @Override
+    public String toString() {
+        return "[nome: " + nome + " fabricante: " + fabricante + "ano: " + ano + "]";
     }
 
 
