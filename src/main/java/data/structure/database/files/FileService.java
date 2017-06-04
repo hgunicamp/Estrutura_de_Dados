@@ -1,10 +1,13 @@
 package data.structure.database.files;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
 import java.io.RandomAccessFile;
 
@@ -64,6 +67,26 @@ public class FileService {
         outFile.seek(position);
         outFile.write(buffer, 0, size);
         outFile.close();
+    }
+
+    /**
+     * Converts an Serializable object into a byte array.
+     * 
+     * @return byte[]
+     */
+    public static byte[] convertToBytes(Object object) throws IOException {
+        ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
+        ObjectOutput out = new ObjectOutputStream(outBuffer);
+        out.writeObject(object);
+        out.flush();
+        return outBuffer.toByteArray();
+    }
+
+    public static Object convertToObject(byte[] buffer) throws IOException,
+                                                               ClassNotFoundException {
+        ByteArrayInputStream inputBuffer = new ByteArrayInputStream(buffer);
+        ObjectInputStream input = new ObjectInputStream(inputBuffer);
+        return input.readObject();
     }
 
     // Avoids create an object of this class.
