@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.RandomAccessFile;
 
 import data.structure.database.indexes.IndexElement;
 import data.structure.tree.RBTree;
@@ -40,6 +41,28 @@ public class FileService {
             out.writeObject(indexNode.getElement());
         }
         out.close();
+        outFile.close();
+    }
+
+    /**
+     * Reads 'size'' bytes from data file starting at 'position'.
+     */
+    public static void readDataFile(String file, int position, int size, byte[] buffer) throws IOException,
+                                                                                               FileNotFoundException {
+        RandomAccessFile inputFile = new RandomAccessFile(file, "r");
+        inputFile.seek(position);
+        inputFile.read(buffer, 0, size);
+        inputFile.close();
+    }
+
+    /**
+     * Writes 'size'' bytes from data file starting at 'position'.
+     */
+    public static void writeDataFile(String file, int position, int size, byte[] buffer) throws IOException,
+                                                                                                FileNotFoundException {
+        RandomAccessFile outFile = new RandomAccessFile(file, "w");
+        outFile.seek(position);
+        outFile.write(buffer, 0, size);
         outFile.close();
     }
 
