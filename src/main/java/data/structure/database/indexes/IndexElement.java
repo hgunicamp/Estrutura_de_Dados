@@ -40,6 +40,11 @@ public class IndexElement implements Comparable<IndexElement>, Serializable {
         this.size = 0;
     }
 
+    public IndexElement(int hashCode) {
+        this();
+        this.hashCode = hashCode;
+    }
+
     public IndexElement(int hashCode, int initPos, int size) {
         this.hashCode = hashCode;
         this.initPosition = initPos;
