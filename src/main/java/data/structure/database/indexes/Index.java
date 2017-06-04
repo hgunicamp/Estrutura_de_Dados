@@ -85,6 +85,10 @@ public class Index {
     public void addIndex(int hashCode, int position, int size) {
         this.modified = true;
         this.indexTree.add(new IndexElement(hashCode, position, size));
+        int nextPosToWriteCandidate = position + size;
+        if (this.nextPosToWrite < nextPosToWriteCandidate) {
+            this.nextPosToWrite = nextPosToWriteCandidate;
+        }
     }
 
     /**
