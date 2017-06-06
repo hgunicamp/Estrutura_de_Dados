@@ -18,6 +18,13 @@ import data.structure.tree.NodeBinTree;
 public class FileService {
 
     /**
+     * Relative paths.
+     */
+    public static final String  BASEDIR = System.getProperty("user.dir");
+    public static final String  DATADIR = BASEDIR + "/database/data/";
+    public static final String INDEXDIR = BASEDIR + "/database/index/";
+
+    /**
      * Reads the indexes stored in a file to a RBTree.
      */
     public static void readIndexFile(String file, RBTree<IndexElement> indexTree) throws IOException,
