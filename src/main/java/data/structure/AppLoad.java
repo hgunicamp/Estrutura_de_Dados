@@ -32,7 +32,7 @@ public class AppLoad {
         return newProp;
     }
 
-    private static Automovel newAutomovel(ArrayList<Automovel> autoList, Index autoIndex, Scanner scanner) {
+    private static Automovel newAutomovel(ArrayList<Automovel> autoList, Index autoIndex, int donoHashCode,Scanner scanner) {
         System.out.println("Nome: ");
         String nome = scanner.nextLine();
         System.out.println("Fabricante: ");
@@ -46,6 +46,7 @@ public class AppLoad {
         carro.setFabricante(fabricante);;
         carro.setPlaca(placa);
         carro.setAno(ano);
+        carro.setDonoHashCode(donoHashCode);
         autoList.add(carro);
         autoIndex.addIndex(carro.hashCode(), 0, 0);
         return carro;
@@ -87,7 +88,7 @@ public class AppLoad {
             boolean novoCarro;
             do {
                 System.out.println("Novo carro:");
-                Automovel carro = newAutomovel(autoList, autoIndex, scanner);
+                Automovel carro = newAutomovel(autoList, autoIndex, prop.hashCode(), scanner);
                 prop.add(carro);
                 boolean novoAcessorio;
                 do {
