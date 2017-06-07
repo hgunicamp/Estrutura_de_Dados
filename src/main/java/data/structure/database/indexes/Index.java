@@ -18,6 +18,10 @@ public class Index {
         return modified;
     }
 
+    public RBTree<IndexElement> getIndexTree() {
+        return this.indexTree;
+    }
+
     // Constructors
     /**
      * Returns a Index to a data file wich already exists in the system.
@@ -55,7 +59,7 @@ public class Index {
                 result = next;
             }
         }
-        return result + 1;
+        return result;
     }
 
     /**

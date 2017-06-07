@@ -70,7 +70,7 @@ public class FileService {
      */
     public static void writeDataFile(String file, int position, int size, byte[] buffer) throws IOException,
                                                                                                 FileNotFoundException {
-        RandomAccessFile outFile = new RandomAccessFile(file, "w");
+        RandomAccessFile outFile = new RandomAccessFile(file, "rw");
         outFile.seek(position);
         outFile.write(buffer, 0, size);
         outFile.close();
