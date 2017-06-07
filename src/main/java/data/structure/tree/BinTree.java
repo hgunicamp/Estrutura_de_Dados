@@ -250,6 +250,7 @@ public class BinTree<E extends Comparable<E>> implements Iterable<NodeBinTree<E>
      * @return NodeBinTree<E>
      */
     public NodeBinTree<E> search(E element) {
+        if (null == this.root) return null;
         return searchNextStep(element, this.root);
     }
 
