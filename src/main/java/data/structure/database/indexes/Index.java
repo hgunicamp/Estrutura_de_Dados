@@ -138,4 +138,16 @@ public class Index {
         this.nextPosToWrite += size;
     }
 
+    /**
+     * Removes a reference to a tupple.
+     * It will become a tombstone inside the data file.
+     */
+    public boolean remove(int hashCode) {
+        NodeRBTree<IndexElement> node = (NodeRBTree<IndexElement>) this.indexTree.search(new IndexElement(hashCode));
+        if (null == node) return false;
+        this.indexTree.remove(node);
+        this.modified = true;
+        return true;
+    }
+
 }
