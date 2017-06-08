@@ -21,31 +21,25 @@ public class AppLoad {
         String nome = scanner.nextLine();
         System.out.println("Endereço: ");
         String endereco = scanner.nextLine();
-        System.out.println("Cnpj: ");
-        int cnpj = Integer.parseInt(scanner.nextLine());
-        Proprietario newProp = new Proprietario();
-        newProp.setNome(nome);
-        newProp.setEndereco(endereco);
-        newProp.setCnpj(cnpj);
+        System.out.println("CPF: ");
+        String cpf = scanner.nextLine();
+        Proprietario newProp = new Proprietario(nome, endereco, cpf);
         propList.add(newProp);
         propIndex.addIndex(newProp.hashCode(), 0, 0);
         return newProp;
     }
 
     private static Automovel newAutomovel(ArrayList<Automovel> autoList, Index autoIndex, int donoHashCode,Scanner scanner) {
-        System.out.println("Nome: ");
-        String nome = scanner.nextLine();
+        System.out.println("Modelo: ");
+        String modelo = scanner.nextLine();
         System.out.println("Fabricante: ");
         String fabricante = scanner.nextLine();
         System.out.println("Placa: ");
         String placa = scanner.nextLine();
         System.out.println("Ano: ");
         int ano = Integer.parseInt(scanner.nextLine());
-        Automovel carro = new Automovel();
-        carro.setNome(nome);
-        carro.setFabricante(fabricante);;
+        Automovel carro = new Automovel(modelo, fabricante, ano);
         carro.setPlaca(placa);
-        carro.setAno(ano);
         carro.setDonoHashCode(donoHashCode);
         autoList.add(carro);
         autoIndex.addIndex(carro.hashCode(), 0, 0);

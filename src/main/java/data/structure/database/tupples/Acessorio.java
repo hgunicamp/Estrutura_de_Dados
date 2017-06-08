@@ -26,6 +26,6 @@ public class Acessorio implements Serializable {
 
     @Override
     public String toString() {
-        return "[acessosio: " + nome + "]";
+        return "Acessório: " + nome;
     }
 }

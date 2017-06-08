@@ -9,7 +9,7 @@ public class Proprietario implements Serializable {
 
     private String nome;
     private String endereco;
-    private int cnpj;
+    private String cpf;
     private ArrayList<Integer> autoHashes;
 
     // Getters and Setters.
@@ -29,12 +29,8 @@ public class Proprietario implements Serializable {
         this.endereco = endereco;
     }
 
-    public int getCnpj() {
-        return this.cnpj;
-    }
-
-    public void setCnpj(int cnpj) {
-        this.cnpj = cnpj;
+    public String getCpf() {
+        return this.cpf;
     }
 
     public ArrayList<Integer> getAutoHashes() {
@@ -42,13 +38,11 @@ public class Proprietario implements Serializable {
     }
 
     // Constructor
-    public Proprietario() {
-        this.autoHashes = new ArrayList<Integer>();
-    }
-
-    public Proprietario(String nome, int cnpj) {
+    public Proprietario(String nome, String endereco, String cpf) {
         this.nome = nome;
-        this.cnpj = cnpj;
+        this.endereco = endereco;
+        this.cpf = cpf;
+        this.autoHashes = new ArrayList<Integer>();
     }
 
     /**
@@ -71,13 +65,12 @@ public class Proprietario implements Serializable {
      */
     @Override
     public int hashCode() {
-        String hashGen = nome + cnpj;
-        return hashGen.hashCode();
+        return cpf.hashCode();
     }
 
     @Override
     public String toString() {
-        return "[nome: " + nome + " cnpj: " + cnpj + "]";
+        return String.format("Nome: %s       cpf: %s\nEndereço: %s", nome, cpf, endereco);
     }
 
 }

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class Automovel implements Serializable {
 
-    private String nome;
+    private String modelo;
     private String fabricante;
     private String placa;
     private int ano;
@@ -13,20 +13,12 @@ public class Automovel implements Serializable {
     private ArrayList<Integer> acessoriosHashes;
 
     // Getters and Setters
-    public String getNome() {
-        return this.nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
+    public String getModelo() {
+        return this.modelo;
     }
 
     public String getFabricante() {
         return this.fabricante;
-    }
-
-    public void setFabricante(String fabricante) {
-        this.fabricante = fabricante;
     }
 
     public String getPlaca() {
@@ -58,21 +50,16 @@ public class Automovel implements Serializable {
     }
 
     // Contructor
-    public Automovel() {
-        this.acessoriosHashes = new ArrayList<Integer>();
-    }
-
-    public Automovel(String nome, String fabricante, int ano, int donoHashCode) {
-        this.nome = nome;
+    public Automovel(String modelo, String fabricante, int ano) {
+        this.modelo = modelo;
         this.fabricante = fabricante;
         this.ano = ano;
-        this.donoHashCode = donoHashCode;
+        this.acessoriosHashes = new ArrayList<Integer>();
     }
 
     @Override
     public int hashCode() {
-        String hashGen = nome + fabricante + ano + donoHashCode;
-        return hashGen.hashCode();
+        return placa.hashCode();
     }
 
     /**
@@ -92,7 +79,7 @@ public class Automovel implements Serializable {
 
     @Override
     public String toString() {
-        return "[nome: " + nome + " fabricante: " + fabricante + "ano: " + ano + "]";
+        return "modelo: " + modelo + " fabricante: " + fabricante + "ano: " + ano;
     }
 
 
