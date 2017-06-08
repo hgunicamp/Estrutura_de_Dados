@@ -68,14 +68,9 @@ public class Index {
     /**
      * Updates the index file if it's needed.
      */
-    public void updateIndexFile() {
+    public void updateIndexFile() throws IOException {
         if (!modified) return;
-        try {
-            FileService.writeIndexFile(indexFile, indexTree);
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.exit(-1);
-        }
+        FileService.writeIndexFile(indexFile, indexTree);
     }
 
     /**
