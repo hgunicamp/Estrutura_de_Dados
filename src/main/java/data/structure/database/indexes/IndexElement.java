@@ -54,4 +54,9 @@ public class IndexElement implements Comparable<IndexElement>, Serializable {
     public int compareTo(IndexElement other) {
         return (this.hashCode < other.hashCode) ? -1 : (this.hashCode > other.hashCode) ? 1 : 0;
     } 
+
+    @Override
+    public IndexElement clone() {
+        return new IndexElement(this.hashCode);
+    }
 }

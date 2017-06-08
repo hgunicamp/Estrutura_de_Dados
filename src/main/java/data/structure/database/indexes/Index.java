@@ -150,4 +150,26 @@ public class Index {
         return true;
     }
 
+    /**
+     * Generates backups of current data and index files.
+     */
+    public void backup() throws IOException {
+        String backupDataFile  = this.dataFile  + ".back";
+        String backupIndexFile = this.indexFile + ".back";
+        RBTree<IndexElement> newIndexTree = new RBTree<IndexElement>();
+        int initPos = 0;
+        for (NodeBinTree<IndexElement> indexNode: this.indexTree) {
+            IndexElement index = indexNode.getElement();
+            IndexElement newIndex = index.clone();
+            int size = index.getSize();
+            byte[] buffer = FileService.readDataFile(this.dataFile, index.getInitPosition(), size);
+            FileService.writeDataFile(backupDataFile, initPos, size, buffer);
+            newIndex.setInitPosition(initPos);
+            newIndex.setSize(size);
+            newIndexTree.add(newIndex);
+            initPos +=size;
+        }
+        FileService.writeIndexFile(backupIndexFile, newIndexTree);
+    }
+
 }
