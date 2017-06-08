@@ -119,4 +119,23 @@ public class Index {
         return FileService.convertToObject(buffer);
     }
 
+    /**
+     * Writes a tupple in the data file.
+     */
+    public void setData(Object tupple) throws IOException {
+        int hashCode = tupple.hashCode();
+        byte[] buffer = FileService.convertToBytes(tupple);
+        int size = buffer.length;
+        IndexElement index = search(hashCode);
+        if (null == index) {
+            index = new IndexElement(hashCode);
+            indexTree.add(index);
+        }
+        index.setInitPosition(this.nextPosToWrite);
+        index.setSize(size);
+        FileService.writeDataFile(this.dataFile, this.nextPosToWrite, size, buffer);
+        this.modified = true;
+        this.nextPosToWrite += size;
+    }
+
 }
