@@ -79,7 +79,7 @@ public class Automovel implements Serializable {
 
     @Override
     public String toString() {
-        return "modelo: " + modelo + " fabricante: " + fabricante + "ano: " + ano;
+        return "modelo: " + modelo + " fabricante: " + fabricante + " ano: " + ano;
     }
 
 

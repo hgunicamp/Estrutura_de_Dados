@@ -5,7 +5,6 @@ import java.util.Scanner;
 
 import data.structure.database.files.FileService;
 import data.structure.database.tupples.*;
-import data.structure.tree.RBTree;
 import data.structure.database.indexes.*;
 
 public class AppLoad {

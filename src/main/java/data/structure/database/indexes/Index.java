@@ -3,6 +3,9 @@ package data.structure.database.indexes;
 import data.structure.tree.NodeBinTree;
 import data.structure.tree.NodeRBTree;
 import data.structure.tree.RBTree;
+
+import java.io.IOException;
+
 import data.structure.database.files.FileService;
 
 public class Index {
@@ -104,6 +107,16 @@ public class Index {
             this.modified = true;
             this.indexTree.remove(node);
         }
+    }
+
+    /**
+     * Returns the data pointed by hash.
+     */
+    public Object getData(int hashCode) throws IOException, ClassNotFoundException {
+        IndexElement index = search(hashCode);
+        if (null == index) return null;
+        byte[] buffer = FileService.readDataFile(this.dataFile, index.getInitPosition(), index.getSize());
+        return FileService.convertToObject(buffer);
     }
 
 }

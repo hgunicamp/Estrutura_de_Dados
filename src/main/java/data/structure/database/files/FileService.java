@@ -57,12 +57,14 @@ public class FileService {
     /**
      * Reads 'size'' bytes from data file starting at 'position'.
      */
-    public static void readDataFile(String file, int position, int size, byte[] buffer) throws IOException,
-                                                                                               FileNotFoundException {
+    public static byte[] readDataFile(String file, int position, int size) throws IOException,
+                                                                                  FileNotFoundException {
         RandomAccessFile inputFile = new RandomAccessFile(file, "r");
+        byte[] buffer = new byte[size];
         inputFile.seek(position);
         inputFile.read(buffer, 0, size);
         inputFile.close();
+        return buffer;
     }
 
     /**
